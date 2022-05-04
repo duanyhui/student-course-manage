@@ -4,6 +4,7 @@ import duan.server.entity.Teacher;
 import duan.server.mapper.TeacherMapper;
 import duan.server.service.ITeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements ITeacherService {
 
+    @Autowired
+    TeacherMapper teacherMapper;
+
+    public Teacher findByTid(Integer tid) {
+        return teacherMapper.findByTid(tid);
+    }
 }
