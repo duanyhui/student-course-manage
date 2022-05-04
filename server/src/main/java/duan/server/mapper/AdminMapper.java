@@ -17,4 +17,5 @@ import org.apache.ibatis.annotations.Param;
 public interface AdminMapper extends BaseMapper<Admin> {
 
     public Admin findByUid(@Param("uid") Integer uid);
+
 }
