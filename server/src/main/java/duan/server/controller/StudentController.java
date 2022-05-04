@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022-05-04
  */
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
