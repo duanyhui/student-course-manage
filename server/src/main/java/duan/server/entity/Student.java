@@ -30,6 +30,9 @@ public class Student implements Serializable {
       @ApiModelProperty("学号")
         private String sno;
 
+      @ApiModelProperty("密码")
+      private String password;
+
       @ApiModelProperty("姓名")
       private String sname;
 
