@@ -18,7 +18,7 @@ public class CodeGenerator {
     }
 
     private static void generate() {
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/studentms?serverTimezone=GMT%2b8", "root", "123456")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/studentms?serverTimezone=GMT%2b8", "root", "duan783809979")
                 .globalConfig(builder -> {
                     builder.author("duanyhui") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
@@ -26,7 +26,7 @@ public class CodeGenerator {
                             .outputDir("C:\\Users\\31165\\Desktop\\数据库课设\\课设\\server\\src\\main\\java\\"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.duan.server") // 设置父包名
+                    builder.parent("duan.server") // 设置父包名
                             .moduleName(null) // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "C:\\Users\\31165\\Desktop\\数据库课设\\课设\\server\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
