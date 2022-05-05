@@ -5,6 +5,13 @@ spring:
     url: jdbc:mysql://localhost:3306/sjkks?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: duan783809979
+    # 热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: sre/main/java
+  freemarker:
+    cache: false
 
 
 mybatis-plus:
@@ -13,3 +20,9 @@ mybatis-plus:
   configuration:
     # 输出到日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
+
+server:
+  port: 1008
