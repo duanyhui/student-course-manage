@@ -6,4 +6,9 @@
     <select id="findByUid" resultType="duan.server.entity.Admin">
         SELECT * FROM admin WHERE uid = #{uid}
     </select>
+    <select id="findStu" resultType="duan.server.entity.Student">
+        SELECT * FROM student WHERE uid = #{uid}
+    </select>
+
+
 </mapper>
