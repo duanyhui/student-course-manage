@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -52,10 +54,16 @@ public class TeacherController {
 
     @PostMapping("/add")
     public Result add(@RequestBody Teacher teacher) {
+        if (teacher.getPassword()==null || teacher.getPassword().equals("")) {
+            teacher.setPassword("123456");
+        }
         try {
             System.out.println("正在添加老师 " + teacher);
+            if (teacherService.getTno(teacher.getTno())) {
+                return Result.fail("操作失败,老师已存在");
+            }
             boolean flag = teacherService.insertTeacher(teacher);
-            return flag ? Result.succ("操作成功") : Result.fail("操作失败,存在编号相同的老师");
+            return flag ? Result.succ("操作成功,初始密码为123456") : Result.fail("操作失败,存在编号相同的老师");
         } catch (DataAccessException e) {
             return Result.fail("操作失败,请检查老师编号是否重复");
         }
@@ -82,6 +90,8 @@ public class TeacherController {
             return Result.fail("操作失败,数据库异常");
         }
     }
+
+
 
 }
 

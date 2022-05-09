@@ -40,4 +40,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     public boolean updateByTno(Teacher teacher) {
         return teacherMapper.updateByTno(teacher);
     }
+
+    public boolean getTno(String tno) {
+        return teacherMapper.getTno(tno);
+    }
 }

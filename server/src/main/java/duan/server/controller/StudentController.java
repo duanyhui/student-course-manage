@@ -106,6 +106,28 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/add")
+    public Result add(@RequestBody Student student) {
+        System.out.println("正在添加学生 " + student);
+        try {
+            if (studentService.haveSno(student.getSno())) {
+                return Result.fail("添加失败,学号已存在");
+            }
+            if(student.getPassword()==null){
+                student.setPassword("123456");
+            }
+            if (studentService.add(student)) {
+                return Result.succ("添加成功,默认密码为123456");
+            }
+            else {
+                return Result.fail("添加失败");
+            }
+        }
+        catch (DataAccessException e) {
+            return Result.fail("添加学生失败,缺少必要参数");
+        }
+    }
+
     @PostMapping("/update")
     public Result updateStudent(@RequestBody Student student) {
         try {

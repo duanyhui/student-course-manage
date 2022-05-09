@@ -81,4 +81,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public String getTerm(String sno) {
         return studentMapper.getTerm(sno);
     }
+
+    public boolean add(Student student) {
+        return studentMapper.add(student);
+    }
+
+    public boolean haveSno(String sno) {
+                return studentMapper.haveSno(sno);
+    }
 }

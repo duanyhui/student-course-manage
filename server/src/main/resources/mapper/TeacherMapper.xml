@@ -33,4 +33,7 @@
     <select id="findByTno" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher WHERE tno = #{tno}
     </select>
+    <select id="getTno" resultType="java.lang.Boolean">
+        SELECT * FROM teacher WHERE tno = #{tno}
+    </select>
 </mapper>

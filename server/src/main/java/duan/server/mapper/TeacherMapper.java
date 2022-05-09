@@ -25,4 +25,6 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     boolean deleteByTno(@Param("tno") String tno);
 
     boolean updateByTno(@Param("teacher") Teacher teacher);
+
+    boolean getTno(@Param("tno") String tno);
 }
