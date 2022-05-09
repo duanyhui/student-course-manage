@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,7 +17,12 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface StudentMapper extends BaseMapper<Student> {
-    public Student findBySno(@Param("sno") String sno);
+    Student findBySno(@Param("sno") String sno);
+
+
+    List<Student> findAll();
+
+    List<Student> findBySearch(@Param("student") Student student,@Param("fuzzy")  Integer fuzzy);
 
 
 }

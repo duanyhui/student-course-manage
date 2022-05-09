@@ -6,4 +6,23 @@
     <select id="findBySno" resultType="duan.server.entity.Student">
         SELECT * FROM student WHERE sno = #{sno}
     </select>
+    <select id="findAll" resultType="duan.server.entity.Student">
+        SELECT * FROM student
+    </select>
+    <select id="findBySearch" resultType="duan.server.entity.Student">
+        SELECT * FROM student
+        <where>
+            <if test="student.sno != null">
+                sno = #{student.sno}
+            </if>
+            <if test="student.sname != null">
+                <if test="fuzzy == 0">
+                    AND sname = #{student.sname}
+                </if>
+                <if test="fuzzy == 1">
+                    AND sname LIKE CONCAT('%', #{student.sname}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
 </mapper>
