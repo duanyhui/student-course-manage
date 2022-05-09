@@ -25,4 +25,7 @@ public interface StudentMapper extends BaseMapper<Student> {
     List<Student> findBySearch(@Param("student") Student student,@Param("fuzzy")  Integer fuzzy);
 
 
+    boolean updateByCno(@Param("student") Student student);
+
+    boolean deleteBySno(@Param("sno") String sno);
 }

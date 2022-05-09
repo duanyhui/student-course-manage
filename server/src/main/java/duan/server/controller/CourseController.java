@@ -68,7 +68,13 @@ public class CourseController {
     }
     @GetMapping("/findall")
     public Result findall(){
-        return Result.succ(courseService.findAllCourse());
+        try {
+            return Result.succ(courseService.findAllCourse());
+        }
+        catch (DataAccessException e){
+            return Result.fail("查询失败");
+        }
+
     }
 
 

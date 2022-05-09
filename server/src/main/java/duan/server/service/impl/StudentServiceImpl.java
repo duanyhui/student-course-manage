@@ -69,4 +69,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public Integer getLength() {
         return studentMapper.findAll().size();
     }
+
+    public boolean updateByCno(Student student) {
+        return studentMapper.updateByCno(student);
+    }
+
+    public boolean deleteBySno(String sno) {
+        return studentMapper.deleteBySno(sno);
+    }
 }

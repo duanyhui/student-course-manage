@@ -7,6 +7,7 @@ import duan.server.service.impl.StudentServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -88,7 +89,38 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/deleteBySno/{sno}")
+    public Result deleteById(@PathVariable("sno") String sno) {
+        System.out.println("正在删除学生 sno为：" + sno);
+        try {
+            if (studentService.deleteBySno(sno)) {
+                return Result.succ("删除成功");
+            }
+            else {
+                return Result.fail("删除失败");
+            }
 
+        }
+        catch (DataAccessException e) {
+            return Result.fail("删除学生失败,存在外键依赖");
+        }
+    }
+
+    @PostMapping("/update")
+    public Result updateStudent(@RequestBody Student student) {
+        try {
+            System.out.println("更新 " + student);
+            if(studentService.updateByCno(student)) {
+                return Result.succ("更新成功");
+            }
+            else {
+                return Result.fail("更新失败,没有这个学生");
+            }
+        }
+        catch (Exception e) {
+            return Result.fail("更新学生信息失败，存在外键依赖");
+        }
+    }
 
     @GetMapping("/getLength")
     public Result getLength() {
