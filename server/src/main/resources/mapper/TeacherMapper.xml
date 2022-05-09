@@ -39,4 +39,20 @@
     <select id="findAll" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher
     </select>
+    <select id="findBySearch" resultType="duan.server.entity.Teacher">
+        SELECT * FROM teacher
+        <where>
+            <if test="teacher.tno != null">
+                tno = #{teacher.tno}
+            </if>
+            <if test="teacher.tname != null">
+                <if test="fuzzy == 0">
+                    AND tname = #{teacher.tname}
+                </if>
+                <if test="fuzzy == 1">
+                    AND tname LIKE CONCAT('%', #{teacher.tname}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -33,6 +33,7 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     boolean getTno(@Param("tno") String tno);
 
 
+    List<Teacher> findBySearch(@Param("teacher") Teacher teacher ,@Param("fuzzy") Integer fuzzy);
 
 
 }

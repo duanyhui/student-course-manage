@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -104,6 +105,27 @@ public class TeacherController {
         }
         catch (Exception e) {
             return Result.fail("查询老师列表分页失败");
+        }
+    }
+
+    /**
+     * 查询老师信息，fuzzy为模糊查询标志位,为0时精确查询，为1时模糊查询
+     *
+     */
+    @GetMapping("/findBySearch")
+    public Result findBySearch(@RequestBody Teacher teacher) {
+
+        try {
+            Integer fuzzy = (Objects.equals(teacher.getPassword(), "fuzzy")) ? 1 : 0;
+
+            /**
+             * fuzzy为模糊查询标志位，当传入的teacher的pwd为fuzzy时，模糊查询
+             */
+            List<Teacher> list = teacherService.findBySearch(teacher.getTno(), teacher.getTname(), fuzzy);
+            return Result.succ(list);
+        }
+        catch (Exception e) {
+            return Result.fail("查询老师信息失败,请检查参数");
         }
     }
 
