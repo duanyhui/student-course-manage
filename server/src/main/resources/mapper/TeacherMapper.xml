@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duan.server.mapper.TeacherMapper">
+    <insert id="insertTeacher">
+        INSERT INTO teacher (tno,password, tname,tsex,college)
+        VALUES (#{teacher.tno},#{teacher.password}, #{teacher.tname}, #{teacher.tsex}, #{teacher.college})
+    </insert>
+    <update id="updateByTno">
+        UPDATE teacher
+        <set>
+            <if test="teacher.password != null">
+                password = #{teacher.password},
+            </if>
+            <if test="teacher.tname != null">
+                tname = #{teacher.tname},
+            </if>
+            <if test="teacher.tsex != null">
+                tsex = #{teacher.tsex},
+            </if>
+            <if test="teacher.college != null">
+                college = #{teacher.college},
+            </if>
+        </set>
+        WHERE tno=#{teacher.tno}
+    </update>
+    <delete id="deleteByTno">
+        DELETE FROM teacher WHERE tno = #{tno}
+    </delete>
 
     <select id="findByTid" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher WHERE tid = #{tid}

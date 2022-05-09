@@ -19,4 +19,10 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     public Teacher findByTid(@Param("tid") Integer tid);
 
     Teacher findByTno(@Param("tno") String tno);
+
+    boolean insertTeacher(@Param("teacher") Teacher teacher);
+
+    boolean deleteByTno(@Param("tno") String tno);
+
+    boolean updateByTno(@Param("teacher") Teacher teacher);
 }

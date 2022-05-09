@@ -6,6 +6,7 @@ import duan.server.entity.Student;
 import duan.server.entity.Teacher;
 import duan.server.service.impl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -48,5 +49,39 @@ public class TeacherController {
             return Result.succ("操作成功");
         }
     }
+
+    @PostMapping("/add")
+    public Result add(@RequestBody Teacher teacher) {
+        try {
+            System.out.println("正在添加老师 " + teacher);
+            boolean flag = teacherService.insertTeacher(teacher);
+            return flag ? Result.succ("操作成功") : Result.fail("操作失败,存在编号相同的老师");
+        } catch (DataAccessException e) {
+            return Result.fail("操作失败,请检查老师编号是否重复");
+        }
+    }
+    @PostMapping("/deleteByTno/{tno}")
+    public Result deleteByTno(@PathVariable("tno") String tno) {
+        try {
+            System.out.println("正在删除老师 " + tno);
+            boolean flag = teacherService.deleteByTno(tno);
+            return flag ? Result.succ("操作成功") : Result.fail("操作失败,老师不存在");
+        }
+        catch (DataAccessException e) {
+            return Result.fail("操作失败,存在外键依赖，请检查老师是否被使用");
+        }
+    }
+
+    @PostMapping("/update")
+    public Result update(@RequestBody Teacher teacher) {
+        try {
+            System.out.println("正在更新老师 " + teacher);
+            boolean flag = teacherService.updateByTno(teacher);
+            return flag ? Result.succ("操作成功") : Result.fail("操作失败,老师不存在");
+        } catch (DataAccessException e) {
+            return Result.fail("操作失败,数据库异常");
+        }
+    }
+
 }
 

@@ -28,4 +28,16 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     public Teacher findByTno(String tno) {
         return teacherMapper.findByTno(tno);
     }
+
+    public boolean insertTeacher(Teacher teacher) {
+        return teacherMapper.insertTeacher(teacher);
+    }
+
+    public boolean deleteByTno(String tno) {
+        return teacherMapper.deleteByTno(tno);
+    }
+
+    public boolean updateByTno(Teacher teacher) {
+        return teacherMapper.updateByTno(teacher);
+    }
 }
