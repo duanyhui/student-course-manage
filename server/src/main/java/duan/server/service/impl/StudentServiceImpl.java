@@ -77,4 +77,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public boolean deleteBySno(String sno) {
         return studentMapper.deleteBySno(sno);
     }
+
+    public String getTerm(String sno) {
+        return studentMapper.getTerm(sno);
+    }
 }

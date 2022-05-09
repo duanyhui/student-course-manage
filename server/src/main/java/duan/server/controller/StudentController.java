@@ -132,5 +132,21 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/getTerm/{sno}")
+    public Result getTerm(@PathVariable("sno") String sno) {
+        try {
+            if(studentService.getTerm(sno) == null) {
+                return Result.fail("没有这个学生","大一上");
+            }
+            else {
+                return Result.succ(studentService.getTerm(sno));
+            }
+        }
+        catch (Exception e) {
+            return Result.fail("获取学期失败","大一上");
+        }
+    }
+
+
 }
 

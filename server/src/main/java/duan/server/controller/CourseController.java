@@ -28,7 +28,7 @@ public class CourseController {
         try {
             boolean a=courseService.insertCourse(course);
             System.out.println("插入课程表，插入课程表的Cno为：" + course.getCno());
-            return Result.succ(course);
+            return Result.succ("增加课程成功");
         }
         // 捕获数据库异常
         catch (DataAccessException e){
@@ -45,7 +45,7 @@ public class CourseController {
             }
             System.out.println("删除课程操作boolen值：" + a);
             System.out.println("删除课程表，删除课程表的Cno为：" + cno);
-            return Result.succ(cno);
+            return Result.succ("删除课程成功");
         }
         catch (DataAccessException e){
             return Result.fail("存在外键依赖，可能是该课程已被学生选择，请重新输入");

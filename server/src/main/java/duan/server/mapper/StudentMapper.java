@@ -28,4 +28,6 @@ public interface StudentMapper extends BaseMapper<Student> {
     boolean updateByCno(@Param("student") Student student);
 
     boolean deleteBySno(@Param("sno") String sno);
+
+    String getTerm(@Param("sno") String sno);
 }

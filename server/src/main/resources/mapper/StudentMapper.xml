@@ -55,4 +55,8 @@
             </if>
         </where>
     </select>
+    <select id="getTerm" resultType="java.lang.String">
+        SELECT term FROM student
+        WHERE sno = #{sno}
+    </select>
 </mapper>
