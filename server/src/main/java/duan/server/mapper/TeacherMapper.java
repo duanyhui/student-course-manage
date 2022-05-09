@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -16,7 +18,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface TeacherMapper extends BaseMapper<Teacher> {
 
-    public Teacher findByTid(@Param("tid") Integer tid);
+    List<Teacher> findAll();
+
+    Teacher findByTid(@Param("tid") Integer tid);
 
     Teacher findByTno(@Param("tno") String tno);
 
@@ -27,4 +31,8 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     boolean updateByTno(@Param("teacher") Teacher teacher);
 
     boolean getTno(@Param("tno") String tno);
+
+
+
+
 }

@@ -58,7 +58,7 @@ public class StudentController {
     /**
      * 获取学生表的分页信息
      * */
-    @GetMapping("/findbypage/{page}/{size}")
+    @GetMapping("/findByPage/{page}/{size}")
     public Result findByPage(@PathVariable("page") int page, @PathVariable("size") int size) {
         try {
             System.out.println("查询学生列表分页 " + page + " " + size);

@@ -92,6 +92,20 @@ public class TeacherController {
     }
 
 
+    /**
+     * 获取老师表的分页信息
+     * */
+    @GetMapping("/findByPage/{page}/{size}")
+    public Result findByPage(@PathVariable("page") int page, @PathVariable("size") int size) {
+        try {
+            System.out.println("查询老师列表分页 " + page + " " + size);
+            List<Teacher> list=teacherService.findByPage(page, size);
+            return Result.succ(list);
+        }
+        catch (Exception e) {
+            return Result.fail("查询老师列表分页失败");
+        }
+    }
 
 }
 
