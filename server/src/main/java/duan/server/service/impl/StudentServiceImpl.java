@@ -59,7 +59,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         Student student = new Student();
         student.setSno(sno);
         student.setSname(sname);
-        fuzzy = (fuzzy == null) ? 0 : fuzzy;
+        fuzzy = (fuzzy == 1) ? 1 : 0;
 
         System.out.println("模糊查询标志位：" + fuzzy);
 
