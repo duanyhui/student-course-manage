@@ -24,4 +24,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     public Teacher findByTid(Integer tid) {
         return teacherMapper.findByTid(tid);
     }
+
+    public Teacher findByTno(String tno) {
+        return teacherMapper.findByTno(tno);
+    }
 }

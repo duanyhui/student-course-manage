@@ -27,6 +27,9 @@ public class Teacher implements Serializable {
         @TableId(value = "tid", type = IdType.AUTO)
       private Integer tid;
 
+      @ApiModelProperty("老师编号")
+      private String tno;
+
       @ApiModelProperty("密码")
       private String password;
 

@@ -17,4 +17,6 @@ import org.apache.ibatis.annotations.Param;
 public interface TeacherMapper extends BaseMapper<Teacher> {
 
     public Teacher findByTid(@Param("tid") Integer tid);
+
+    Teacher findByTno(@Param("tno") String tno);
 }

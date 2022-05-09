@@ -5,4 +5,7 @@
     <select id="findByTid" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher WHERE tid = #{tid}
     </select>
+    <select id="findByTno" resultType="duan.server.entity.Teacher">
+        SELECT * FROM teacher WHERE tno = #{tno}
+    </select>
 </mapper>

@@ -27,18 +27,14 @@ public class TeacherController {
     @PostMapping("/login")
     public Result Login(@RequestBody Teacher teacher){
         System.out.println("正在验证老师登陆 " + teacher);
-        Teacher tea = teacherService.findByTid(teacher.getTid());
+        Teacher tea = teacherService.findByTno(teacher.getTno());
         System.out.println("老师信息：" + tea );
 
         if (tea == null || !tea.getPassword().equals(teacher.getPassword())) {
-
-
-            Result res=Result.fail("操作失败,账号或密码不正确");
-            return res;
+            return Result.fail("操作失败,账号或密码不正确");
         }
         else {
-            Result res=Result.succ(tea);
-            return res;
+            return Result.succ("登陆成功");
         }
     }
 
@@ -46,12 +42,10 @@ public class TeacherController {
     public Result getByTid(@RequestParam("tid")Integer tid){
         Teacher tea = teacherService.findByTid(tid);
         if (tea == null) {
-            Result res=Result.fail("操作失败,账号不存在");
-            return res;
+            return Result.fail("操作失败,账号不存在");
         }
         else {
-            Result res=Result.succ(tea);
-            return res;
+            return Result.succ("操作成功");
         }
     }
 }
