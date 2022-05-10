@@ -66,6 +66,17 @@ public class CtController {
         }
     }
 
+    /**
+     * 查询所有开课信息
+     */
+    @GetMapping("/getAll")
+    public Result getAll() {
+        try {
+            return Result.succ(ctService.getAll());
+        } catch (DataAccessException e) {
+            return Result.fail("查询失败");
+        }
+    }
 
 }
 

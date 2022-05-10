@@ -24,4 +24,7 @@ public interface CtMapper extends BaseMapper<Ct> {
     boolean delByCtid(@Param("ctid") Integer ctid);
 
     List<SCT> getByTno(@Param("tno") String tno);
+
+    List<SCT> getAll();
+
 }

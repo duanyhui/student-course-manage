@@ -16,5 +16,8 @@
           AND ct.cno = course.cno
           AND ct.tno = teacher.tno
     </select>
+    <select id="getAll" resultType="duan.server.entity.SCT">
+        SELECT * FROM ct,course,teacher
+    </select>
 
 </mapper>

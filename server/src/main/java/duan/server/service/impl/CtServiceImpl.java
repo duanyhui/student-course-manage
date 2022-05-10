@@ -34,4 +34,8 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public List<SCT> getByTno(String tno) {
         return ctMapper.getByTno(tno);
     }
+
+    public List<SCT> getAll() {
+        return ctMapper.getAll();
+    }
 }
