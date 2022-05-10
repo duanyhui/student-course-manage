@@ -120,10 +120,10 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/getbysno")
+    @GetMapping("/getbysno/{sno}")
     @ApiOperation(value = "通过sno获取学生信息", notes = "通过sno获取学生信息")
     @ApiParam(name = "sno",value = "学号",required = true)
-    public Result getBySno(@RequestParam("sno") String sno){
+    public Result getBySno(@PathVariable("sno") String sno){
         Student stu = studentService.findBySno(sno);
         return Result.succ(stu);
 
