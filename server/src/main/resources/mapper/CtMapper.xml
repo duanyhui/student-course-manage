@@ -6,4 +6,15 @@
         INSERT INTO ct(cno, tno, term, capacity)
         VALUES(#{ct.cno}, #{ct.tno}, #{ct.term}, #{ct.capacity})
     </insert>
+    <delete id="delByCtid">
+        DELETE FROM ct
+        WHERE ctid = #{ctid}
+    </delete>
+    <select id="getByTno" resultType="duan.server.entity.SCT">
+        SELECT * FROM ct,course,teacher
+        WHERE ct.tno = #{tno}
+          AND ct.cno = course.cno
+          AND ct.tno = teacher.tno
+    </select>
+
 </mapper>

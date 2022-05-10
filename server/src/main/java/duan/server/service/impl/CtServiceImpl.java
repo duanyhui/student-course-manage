@@ -1,11 +1,14 @@
 package duan.server.service.impl;
 
 import duan.server.entity.Ct;
+import duan.server.entity.SCT;
 import duan.server.mapper.CtMapper;
 import duan.server.service.ICtService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,5 +27,11 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public boolean add(Ct ct)  {return ctMapper.add(ct);}
 
 
+    public boolean delByCtid(Integer ctid) {
+        return ctMapper.delByCtid(ctid);
+    }
 
+    public List<SCT> getByTno(String tno) {
+        return ctMapper.getByTno(tno);
+    }
 }

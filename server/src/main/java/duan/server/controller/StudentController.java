@@ -124,9 +124,18 @@ public class StudentController {
     @ApiOperation(value = "通过sno获取学生信息", notes = "通过sno获取学生信息")
     @ApiParam(name = "sno",value = "学号",required = true)
     public Result getBySno(@PathVariable("sno") String sno){
-        Student stu = studentService.findBySno(sno);
-        return Result.succ(stu);
-
+        try {
+            Student stu=new Student();
+            if (studentService.findBySno(sno)==null){
+                return Result.fail("查询失败,没有这个学生");
+            }
+            else{
+            return Result.succ(studentService.findBySno(sno));
+            }
+        }
+        catch (Exception e) {
+            return Result.fail("查询学生信息失败,没有这个学生");
+            }
     }
 
     /**

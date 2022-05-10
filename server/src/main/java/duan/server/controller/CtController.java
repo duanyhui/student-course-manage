@@ -36,5 +36,36 @@ public class CtController {
             return Result.fail("添加失败,请检查数据是否合法，或者是否已经存在");
         }
     }
+
+    @PostMapping("/delByCtid")
+    public Result delByCtid(@RequestBody Ct ct) {
+        try {
+            if (ctService.delByCtid(ct.getCtid())) {
+                return Result.succ("删除成功");
+            } else {
+                return Result.fail("删除失败");
+            }
+        } catch (DataAccessException e) {
+            return Result.fail("删除失败,存在外键依赖，请检查学生是否已经选择课程");
+        }
+    }
+
+    /**
+     * 根据老师tno查询开课信息
+     * @param ct
+     * @return List<SCT>
+     */
+    @GetMapping("/getByTno")
+    public Result getByTid(@RequestBody Ct ct) {
+        try {
+            System.out.println(ct.getTno());
+            return Result.succ(ctService.getByTno(ct.getTno()));
+
+        } catch (DataAccessException e) {
+            return Result.fail("查询失败");
+        }
+    }
+
+
 }
 
