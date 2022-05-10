@@ -46,6 +46,80 @@ public class StudentController {
         }
     }
 
+
+    @PostMapping("/add")
+    public Result add(@RequestBody Student student) {
+        System.out.println("正在添加学生 " + student);
+        try {
+            if (studentService.haveSno(student.getSno())) {
+                return Result.fail("添加失败,学号已存在");
+            }
+            if(student.getPassword()==null){
+                student.setPassword("123456");
+            }
+            if (studentService.add(student)) {
+                return Result.succ("添加成功,默认密码为123456");
+            }
+            else {
+                return Result.fail("添加失败");
+            }
+        }
+        catch (DataAccessException e) {
+            return Result.fail("添加学生失败,缺少必要参数");
+        }
+    }
+
+    @PostMapping("/deleteBySno/{sno}")
+    public Result deleteById(@PathVariable("sno") String sno) {
+        System.out.println("正在删除学生 sno为：" + sno);
+        try {
+            if (studentService.deleteBySno(sno)) {
+                return Result.succ("删除成功");
+            }
+            else {
+                return Result.fail("删除失败");
+            }
+
+        }
+        catch (DataAccessException e) {
+            return Result.fail("删除学生失败,存在外键依赖");
+        }
+    }
+
+    @PostMapping("/update")
+    public Result updateStudent(@RequestBody Student student) {
+        try {
+            System.out.println("更新 " + student);
+            if(studentService.updateByCno(student)) {
+                return Result.succ("更新成功");
+            }
+            else {
+                return Result.fail("更新失败,没有这个学生");
+            }
+        }
+        catch (Exception e) {
+            return Result.fail("更新学生信息失败，存在外键依赖");
+        }
+    }
+
+    /**
+     * 查询学生信息
+     *
+     */
+    @GetMapping("/findBySearch")
+    public Result findBySearch(@RequestBody Student student) {
+
+        try {
+            Integer fuzzy = (Objects.equals(student.getPassword(), "fuzzy")) ? 1 : 0;
+
+            List<Student> list = studentService.findBySearch(student.getSno(), student.getSname(), fuzzy);
+            return Result.succ(list);
+        }
+        catch (Exception e) {
+            return Result.fail("查询学生信息失败,请检查参数");
+        }
+    }
+
     @GetMapping("/getbysno")
     @ApiOperation(value = "通过sno获取学生信息", notes = "通过sno获取学生信息")
     @ApiParam(name = "sno",value = "学号",required = true)
@@ -71,78 +145,7 @@ public class StudentController {
     }
 
 
-    /**
-     * 查询学生信息
-     *
-     */
-    @GetMapping("/findBySearch")
-    public Result findBySearch(@RequestBody Student student) {
-
-        try {
-            Integer fuzzy = (Objects.equals(student.getPassword(), "fuzzy")) ? 1 : 0;
-
-            List<Student> list = studentService.findBySearch(student.getSno(), student.getSname(), fuzzy);
-            return Result.succ(list);
-        }
-        catch (Exception e) {
-            return Result.fail("查询学生信息失败,请检查参数");
-        }
-    }
-
-    @PostMapping("/deleteBySno/{sno}")
-    public Result deleteById(@PathVariable("sno") String sno) {
-        System.out.println("正在删除学生 sno为：" + sno);
-        try {
-            if (studentService.deleteBySno(sno)) {
-                return Result.succ("删除成功");
-            }
-            else {
-                return Result.fail("删除失败");
-            }
-
-        }
-        catch (DataAccessException e) {
-            return Result.fail("删除学生失败,存在外键依赖");
-        }
-    }
-
-    @PostMapping("/add")
-    public Result add(@RequestBody Student student) {
-        System.out.println("正在添加学生 " + student);
-        try {
-            if (studentService.haveSno(student.getSno())) {
-                return Result.fail("添加失败,学号已存在");
-            }
-            if(student.getPassword()==null){
-                student.setPassword("123456");
-            }
-            if (studentService.add(student)) {
-                return Result.succ("添加成功,默认密码为123456");
-            }
-            else {
-                return Result.fail("添加失败");
-            }
-        }
-        catch (DataAccessException e) {
-            return Result.fail("添加学生失败,缺少必要参数");
-        }
-    }
-
-    @PostMapping("/update")
-    public Result updateStudent(@RequestBody Student student) {
-        try {
-            System.out.println("更新 " + student);
-            if(studentService.updateByCno(student)) {
-                return Result.succ("更新成功");
-            }
-            else {
-                return Result.fail("更新失败,没有这个学生");
-            }
-        }
-        catch (Exception e) {
-            return Result.fail("更新学生信息失败，存在外键依赖");
-        }
-    }
+   
 
     @GetMapping("/getLength")
     public Result getLength() {
