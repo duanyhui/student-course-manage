@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duan.server.mapper.CtMapper">
 
+    <insert id="add">
+        INSERT INTO ct(cno, tno, term, capacity)
+        VALUES(#{ct.cno}, #{ct.tno}, #{ct.term}, #{ct.capacity})
+    </insert>
 </mapper>
