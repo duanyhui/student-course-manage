@@ -19,6 +19,8 @@
     </select>
     <select id="getAll" resultType="duan.server.entity.SCT">
         SELECT * FROM ct,course,teacher
+        WHERE ct.cno = course.cno
+          AND ct.tno = teacher.tno
     </select>
     <select id="findBySearch" resultType="duan.server.entity.SCT">
         SELECT * FROM ct,course,teacher
@@ -48,6 +50,22 @@
             AND ct.term = #{sct.term}
 
         </if>
+        </where>
+    </select>
+    <select id="findByTno" resultType="duan.server.entity.SCT">
+        SELECT * FROM ct,course,teacher
+        <where>
+            AND ct.tno = #{tno}
+            AND ct.cno = course.cno
+            AND ct.tno = teacher.tno
+        </where>
+    </select>
+    <select id="findByTerm" resultType="duan.server.entity.SCT">
+        SELECT * FROM ct,course,teacher
+        <where>
+            AND ct.term = #{term}
+            AND ct.cno = course.cno
+            AND ct.tno = teacher.tno
         </where>
     </select>
 

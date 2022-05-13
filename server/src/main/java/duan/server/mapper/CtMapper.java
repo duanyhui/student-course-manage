@@ -30,4 +30,8 @@ public interface CtMapper extends BaseMapper<Ct> {
     boolean deleteCt(@Param("ct") Ct ct);
 
     List<SCT> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+
+    List<SCT> findByTno(@Param("tno") String tno);
+
+    List<SCT> findByTerm(@Param("term") String term);
 }

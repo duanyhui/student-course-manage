@@ -53,21 +53,7 @@ public class CtController {
         }
     }
 
-    /**
-     * 根据老师tno查询开课信息
-     * @param ct
-     * @return List<SCT>
-     */
-    @GetMapping("/getByTno")
-    public Result getByTid(@RequestBody Ct ct) {
-        try {
-            System.out.println(ct.getTno());
-            return Result.succ(ctService.getByTno(ct.getTno()));
 
-        } catch (DataAccessException e) {
-            return Result.fail("查询失败");
-        }
-    }
 
     /**
      * 查询所有开课信息
@@ -84,6 +70,7 @@ public class CtController {
 
     /**
      * 模糊查询开课信息
+     * @return List<SCT>
      */
     @PostMapping("/findBySearch")
     public Result findBySearch(@RequestBody SCT sct) {
@@ -99,6 +86,35 @@ public class CtController {
             return Result.fail("查询失败");
         }
     }
+
+    /**
+     * 根据老师tno查询开课信息
+     * @return List<SCT>
+     */
+    @GetMapping("/getByTno/{tno}")
+    public Result findByTno(@PathVariable String tno) {
+        try {
+            return Result.succ(ctService.findByTno(tno));
+        } catch (DataAccessException e) {
+            return Result.fail("查询失败");
+        }
+    }
+
+    /**
+     * 根据学生的term查询开课信息
+     * @return List<SCT>
+     */
+    @GetMapping("/getByTerm/{term}")
+    public Result findByTerm(@PathVariable String term) {
+        try {
+            return Result.succ(ctService.findByTerm(term));
+        } catch (DataAccessException e) {
+            return Result.fail("查询失败");
+        }
+    }
+
+
+
 
 
 }

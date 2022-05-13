@@ -46,4 +46,11 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     }
 
 
+    public List<SCT> findByTno(String tno) {
+        return ctMapper.findByTno(tno);
+    }
+
+    public List<SCT> findByTerm(String term) {
+        return ctMapper.findByTerm(term);
+    }
 }
