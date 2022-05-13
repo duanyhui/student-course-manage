@@ -77,7 +77,7 @@ public class CtController {
         try {
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
             /**
-             * fuzzy为模糊查询标志位，当传入的fuzzy为'fuzzy'时，模糊查询
+             * fuzzy为模糊查询标志位，当传入的fuzzy为fuzzy时，模糊查询
              */
             System.out.println("传入数据"+sct);
             System.out.println();
@@ -104,10 +104,11 @@ public class CtController {
      * 根据学生的term查询开课信息
      * @return List<SCT>
      */
-    @GetMapping("/getByTerm/{term}")
-    public Result findByTerm(@PathVariable String term) {
+    @PostMapping("/findByStudent")
+    public Result findByStudent(@RequestBody SCT sct) {
         try {
-            return Result.succ(ctService.findByTerm(term));
+            Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
+            return Result.succ(ctService.findByStudent(sct,fuzzyInt));
         } catch (DataAccessException e) {
             return Result.fail("查询失败");
         }

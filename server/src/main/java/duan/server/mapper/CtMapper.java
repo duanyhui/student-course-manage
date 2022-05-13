@@ -34,4 +34,6 @@ public interface CtMapper extends BaseMapper<Ct> {
     List<SCT> findByTno(@Param("tno") String tno);
 
     List<SCT> findByTerm(@Param("term") String term);
+
+    List<SCT> findByStudent(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
 }

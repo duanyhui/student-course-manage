@@ -53,4 +53,8 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public List<SCT> findByTerm(String term) {
         return ctMapper.findByTerm(term);
     }
+
+    public List<SCT> findByStudent(SCT sct, Integer fuzzyInt) {
+        return ctMapper.findByStudent(sct,fuzzyInt);
+    }
 }

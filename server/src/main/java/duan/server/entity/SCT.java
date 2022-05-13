@@ -20,6 +20,10 @@ public class SCT {
 
     private String cno;
 
+    private String sno;
+
+    private String sname;
+
     private String cname;
 
     private Integer tid;
@@ -33,6 +37,8 @@ public class SCT {
     private String capacity;
 
     private String ctid;
+
+    private Integer grade;
 
     private String fuzzy;
 }
