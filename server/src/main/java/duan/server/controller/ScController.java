@@ -56,16 +56,26 @@ public class ScController {
     @PostMapping("/delete")
     public Result delById(@RequestBody Sc sc) {
         try {
-            if (scService.delete(sc)) {
-                return Result.succ("删除成功");
+            if(sc.getGrade()!=null)
+            {
+                if (scService.delete(sc)) {
+                    return Result.succ("删除成功");
+                }
+                else {
+                    return Result.fail("删除失败，没有该选课信息");
+                }
             }
-            else {
-                return Result.fail("删除失败，没有该选课信息");
+
+            else
+            {
+                return Result.fail("删除失败，已有成绩，无法删除");
             }
         }
         catch (DataAccessException e) {
             return Result.fail("删除失败,数据库异常");
         }
+
+
     }
 
     /**

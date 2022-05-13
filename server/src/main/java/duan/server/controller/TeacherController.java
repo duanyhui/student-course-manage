@@ -128,7 +128,7 @@ public class TeacherController {
 
     /**
      * 查询老师信息，fuzzy为模糊查询标志位,为0时精确查询，为1时模糊查询
-     *
+     *(这里唯一用了teaacher的password当做模糊查询条件，不想改了，屎山预定)
      */
     @PostMapping("/findBySearch")
     public Result findBySearch(@RequestBody Teacher teacher) {
@@ -141,6 +141,7 @@ public class TeacherController {
              */
             List<Teacher> list = teacherService.findBySearch(teacher.getTno(), teacher.getTname(), fuzzy);
             System.out.println("查看list " + list);
+            list.forEach(tea -> tea.setPassword(""));  //密码设置为空
             return Result.succ(list);
         }
         catch (Exception e) {

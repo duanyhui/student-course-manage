@@ -29,10 +29,15 @@ public class CtController {
     @PostMapping("/add")
     public Result add(@RequestBody Ct ct) {
         try {
-            if (ctService.add(ct)) {
-            return Result.succ("添加成功");}
+            if(ct.getTerm()!=null) {
+                if (ctService.add(ct)) {
+                    return Result.succ("添加成功");
+                } else {
+                    return Result.fail("添加失败");
+                }
+            }
             else {
-                return Result.fail("添加失败");
+                return Result.fail("添加失败,学期不能为空");
             }
         }
         catch (DataAccessException e) {
@@ -91,7 +96,7 @@ public class CtController {
      * 根据老师tno查询开课信息
      * @return List<SCT>
      */
-    @GetMapping("/getByTno/{tno}")
+    @GetMapping("/findByTno/{tno}")
     public Result findByTno(@PathVariable String tno) {
         try {
             return Result.succ(ctService.findByTno(tno));
