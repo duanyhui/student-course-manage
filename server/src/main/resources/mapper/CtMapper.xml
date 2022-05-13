@@ -34,7 +34,9 @@
         AND (course.cname LIKE CONCAT('%', #{sct.cname}, '%'))
         AND (ct.cno = course.cno)
         </if>
-
+        <if test="sct.term !=null">
+        AND (ct.term LIKE CONCAT('%', #{sct.term}, '%'))
+        </if>
 
 
 </if>
@@ -43,6 +45,7 @@
 
             AND teacher.tname= #{sct.tname}
             AND course.cname = #{sct.cname}
+            AND ct.term = #{sct.term}
 
         </if>
         </where>
