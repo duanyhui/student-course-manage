@@ -38,7 +38,8 @@ public class TeacherController {
             return Result.fail("操作失败,账号或密码不正确");
         }
         else {
-            return Result.succ("登陆成功");
+            tea.setPassword("");
+            return Result.succ(tea);
         }
     }
 
