@@ -106,7 +106,7 @@ public class StudentController {
      * 查询学生信息
      *
      */
-    @GetMapping("/findBySearch")
+    @PostMapping("/findBySearch")
     public Result findBySearch(@RequestBody Student student) {
 
         try {
@@ -125,12 +125,14 @@ public class StudentController {
     @ApiParam(name = "sno",value = "学号",required = true)
     public Result getBySno(@PathVariable("sno") String sno){
         try {
-            Student stu=new Student();
+
             if (studentService.findBySno(sno)==null){
                 return Result.fail("查询失败,没有这个学生");
             }
             else{
-            return Result.succ(studentService.findBySno(sno));
+                Student stu=studentService.findBySno(sno);
+                stu.setPassword("");
+            return Result.succ(stu);
             }
         }
         catch (Exception e) {
