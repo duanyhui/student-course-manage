@@ -33,10 +33,10 @@ public class ScController {
     @PostMapping("/add")
     public Result add(@RequestBody SCT sct) {
         try {
-//            String tterm =studentService.findBySno(sct.getCno()).getTerm();
-//            String s=sct.getTerm();
+            String tterm =studentService.findBySno(sct.getSno()).getTerm();
+            String s=sct.getTerm();
             //  一定要用equals，不能用==
-            if (Objects.equals(sct.getTerm(), studentService.findBySno(sct.getCno()).getTerm()))  //校验前端数据，判断学期是否一致
+            if (Objects.equals(sct.getTerm(), studentService.findBySno(sct.getSno()).getTerm()))  //校验前端数据，判断学期是否一致
             {
                 if (scService.add(sct)) {
                     return Result.succ("添加成功");

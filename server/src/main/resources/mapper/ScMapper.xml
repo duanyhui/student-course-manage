@@ -27,6 +27,9 @@
                 <if test="sct.ctid != null">
                     AND sc.ctid LIKE CONCAT('%', #{sct.ctid}, '%')
                 </if>
+                <if test="sct.tno != null">
+                    AND teacher.tno LIKE CONCAT('%', #{sct.tno}, '%')
+                </if>
                     AND sc.sno = student.sno
                     AND sc.ctid = ct.ctid
                     AND teacher.tno = ct.tno
@@ -40,6 +43,9 @@
                 <if test="sct.ctid != null">
                     AND sc.ctid = #{sct.ctid}
                 </if>
+                    <if test="sct.tno != null">
+                        AND teacher.tno =#{sct.tno}
+                    </if>
                     AND sc.sno = student.sno
                     AND sc.ctid = ct.ctid
                     AND teacher.tno = ct.tno
