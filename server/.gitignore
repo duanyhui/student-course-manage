@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+server/src/main/resources/application-beta.yaml
+
 ### STS ###
 .apt_generated
 .classpath
