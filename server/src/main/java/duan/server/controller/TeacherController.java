@@ -53,6 +53,23 @@ public class TeacherController {
         }
     }
 
+    @GetMapping("/getByTno/{tno}")
+    public Result getByTno(@PathVariable("tno") String tno) {
+        Teacher teacher = teacherService.findByTno(tno);
+       try {
+           if (teacher == null) {
+               return Result.fail("操作失败,老师不存在");
+           }
+           else {
+               teacher.setPassword("");
+               return Result.succ(teacher);
+           }
+       }
+       catch (DataAccessException e) {
+           return Result.fail("操作失败");
+       }
+    }
+
     @PostMapping("/add")
     public Result add(@RequestBody Teacher teacher) {
         if (teacher.getPassword()==null || teacher.getPassword().equals("")) {
@@ -112,16 +129,17 @@ public class TeacherController {
      * 查询老师信息，fuzzy为模糊查询标志位,为0时精确查询，为1时模糊查询
      *
      */
-    @GetMapping("/findBySearch")
+    @PostMapping("/findBySearch")
     public Result findBySearch(@RequestBody Teacher teacher) {
 
         try {
+            System.out.println("查看password " + teacher.getPassword());
             Integer fuzzy = (Objects.equals(teacher.getPassword(), "fuzzy")) ? 1 : 0;
-
             /**
              * fuzzy为模糊查询标志位，当传入的teacher的pwd为fuzzy时，模糊查询
              */
             List<Teacher> list = teacherService.findBySearch(teacher.getTno(), teacher.getTname(), fuzzy);
+            System.out.println("查看list " + list);
             return Result.succ(list);
         }
         catch (Exception e) {
