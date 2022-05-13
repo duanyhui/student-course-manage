@@ -27,8 +27,8 @@ public class Sc implements Serializable {
       @ApiModelProperty("学生编号")
         private String sno;
 
-      @ApiModelProperty("课程编号")
-        private String cno;
+//      @ApiModelProperty("课程编号")
+//        private String cno;
 
       @ApiModelProperty("开课编号")
         private Integer ctid;
