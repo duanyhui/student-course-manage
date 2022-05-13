@@ -37,13 +37,13 @@ public class CtController {
         }
     }
 
-    @PostMapping("/delByCtid")
-    public Result delByCtid(@RequestBody Ct ct) {
+    @PostMapping("/delete")
+    public Result delByCt(@RequestBody Ct ct) {
         try {
-            if (ctService.delByCtid(ct.getCtid())) {
+            if (ctService.delByCt(ct)) {
                 return Result.succ("删除成功");
             } else {
-                return Result.fail("删除失败");
+                return Result.fail("删除失败,不存在该开课信息");
             }
         } catch (DataAccessException e) {
             return Result.fail("删除失败,存在外键依赖，请检查学生是否已经选择课程");

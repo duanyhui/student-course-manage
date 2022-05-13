@@ -27,8 +27,8 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public boolean add(Ct ct)  {return ctMapper.add(ct);}
 
 
-    public boolean delByCtid(Integer ctid) {
-        return ctMapper.delByCtid(ctid);
+    public boolean delByCt(Ct ct) {
+        return ctMapper.deleteCt(ct);
     }
 
     public List<SCT> getByTno(String tno) {

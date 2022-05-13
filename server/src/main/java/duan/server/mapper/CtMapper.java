@@ -21,10 +21,13 @@ public interface CtMapper extends BaseMapper<Ct> {
 
     boolean add(@Param("ct") Ct ct);
 
-    boolean delByCtid(@Param("ctid") Integer ctid);
+
 
     List<SCT> getByTno(@Param("tno") String tno);
 
     List<SCT> getAll();
 
+    boolean deleteCt(@Param("ct") Ct ct);
+
+    List<SCT> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
 }
