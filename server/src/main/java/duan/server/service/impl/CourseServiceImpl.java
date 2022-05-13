@@ -1,12 +1,14 @@
 package duan.server.service.impl;
 
 import duan.server.entity.Course;
+import duan.server.entity.SCT;
 import duan.server.mapper.CourseMapper;
 import duan.server.service.ICourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +44,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return courseMapper.updateCourse(course);
     }
 
-    public Map<String,String> findAllCourse() {
-        return courseMapper.findAllCourse();
+//    public Map<String,String> findAllCourse() {
+//        return courseMapper.findAllCourse();
+//    }
+
+    public List<Course> findBySearch(SCT sct, Integer fuzzyInt) {
+        fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
+        return courseMapper.findBySearch(sct,fuzzyInt);
+    }
+
+    public Course findByCno(String cno) {
+        return courseMapper.findByCno(cno);
     }
 }

@@ -28,6 +28,24 @@
     <select id="findCourseByCno" resultType="duan.server.entity.Course">
         select * from course where cno = #{cno}
     </select>
+    <select id="findBySearch" resultType="duan.server.entity.Course">
+        select * from course
+        <where>
+            <if test="sct.cname != null">
+                <if test="fuzzyInt == 0">
+                    AND cno = #{sct.cno}
+                    AND cname = #{sct.cname}
+                </if>
+                <if test="fuzzyInt == 1">
+                    AND cno LIKE CONCAT('%', #{sct.cno}, '%')
+                    AND cname LIKE CONCAT('%', #{sct.cname}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="findByCno" resultType="duan.server.entity.Course">
+        select * from course where cno = #{cno}
+    </select>
 
     <insert id="insertCourse">
         INSERT INTO course (cno,cname,ccredit) VALUES (#{course.cno},#{course.cname}, #{course.ccredit})

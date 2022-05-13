@@ -3,10 +3,13 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Course;
+import duan.server.entity.SCT;
 import duan.server.service.impl.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * <p>
@@ -36,7 +39,7 @@ public class CourseController {
         }
     }
 
-    @PostMapping("/delbycno/{cno}")
+    @PostMapping("/deleteByCno/{cno}")
     public Result delbycno(@PathVariable String cno){
         try {
             boolean a=courseService.delCourseByCno(cno);
@@ -66,10 +69,25 @@ public class CourseController {
             return Result.fail("存在外键依赖，可能是该课程已被学生选择，请先删除该课程的学生选课记录，再进行更新");
         }
     }
-    @GetMapping("/findall")
-    public Result findall(){
-        try {
-            return Result.succ(courseService.findAllCourse());
+//    @GetMapping("/findall")
+//    public Result findall(){
+//        try {
+//            return Result.succ(courseService.findAllCourse());
+//        }
+//        catch (DataAccessException e){
+//            return Result.fail("查询失败");
+//        }
+//
+//    }
+
+    /**
+     * 模糊查询课程
+     */
+    @PostMapping("/findBySearch")
+    public Result findBySearch(@RequestBody SCT sct){
+        try{
+            Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
+            return Result.succ(courseService.findBySearch(sct, fuzzyInt));
         }
         catch (DataAccessException e){
             return Result.fail("查询失败");

@@ -2,6 +2,7 @@ package duan.server.mapper;
 
 import duan.server.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import duan.server.entity.SCT;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,6 +45,10 @@ public interface CourseMapper extends BaseMapper<Course> {
     public boolean deleteByCno(@Param("cno") String cno);
 
 
-    Map<String, String> findAllCourse();
+
+
+    List<Course> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+
+    Course findByCno(@Param("cno") String cno);
 }
 
