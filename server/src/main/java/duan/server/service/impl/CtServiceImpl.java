@@ -38,4 +38,12 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public List<SCT> getAll() {
         return ctMapper.getAll();
     }
+
+    public List<SCT> findBySearch(SCT sct, Integer fuzzyInt) {
+        fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
+        System.out.println("模糊查询标志位：" + fuzzyInt);
+        return ctMapper.findBySearch(sct, fuzzyInt);
+    }
+
+
 }

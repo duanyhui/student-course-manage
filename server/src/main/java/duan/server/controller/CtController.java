@@ -3,10 +3,13 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
+import duan.server.entity.SCT;
 import duan.server.service.impl.CtServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * <p>
@@ -77,6 +80,26 @@ public class CtController {
             return Result.fail("查询失败");
         }
     }
+
+
+    /**
+     * 模糊查询开课信息
+     */
+    @PostMapping("/findBySearch")
+    public Result findBySearch(@RequestBody SCT sct) {
+        try {
+            Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
+            /**
+             * fuzzy为模糊查询标志位，当传入的fuzzy为'fuzzy'时，模糊查询
+             */
+            System.out.println("传入数据"+sct);
+            System.out.println();
+            return Result.succ(ctService.findBySearch(sct,fuzzyInt));
+        } catch (DataAccessException e) {
+            return Result.fail("查询失败");
+        }
+    }
+
 
 }
 

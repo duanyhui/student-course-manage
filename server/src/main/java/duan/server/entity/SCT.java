@@ -18,9 +18,13 @@ public class SCT {
 
     private Integer cid;
 
+    private String cno;
+
     private String cname;
 
     private Integer tid;
+
+    private String tno;
 
     private String tname;
 
@@ -28,4 +32,7 @@ public class SCT {
 
     private String capacity;
 
+    private String ctid;
+
+    private String fuzzy;
 }

@@ -20,5 +20,32 @@
     <select id="getAll" resultType="duan.server.entity.SCT">
         SELECT * FROM ct,course,teacher
     </select>
+    <select id="findBySearch" resultType="duan.server.entity.SCT">
+        SELECT * FROM ct,course,teacher
+        <where>
+
+
+        <if test="fuzzyInt == 1">
+        <if test="sct.tname !=null">
+        AND (teacher.tname LIKE CONCAT('%', #{sct.tname}, '%'))
+        AND (ct.tno = teacher.tno)
+        </if>
+        <if test="sct.cname !=null">
+        AND (course.cname LIKE CONCAT('%', #{sct.cname}, '%'))
+        AND (ct.cno = course.cno)
+        </if>
+
+
+
+</if>
+        <if test="fuzzyInt == 0">
+
+
+            AND teacher.tname= #{sct.tname}
+            AND course.cname = #{sct.cname}
+
+        </if>
+        </where>
+    </select>
 
 </mapper>
