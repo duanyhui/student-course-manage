@@ -34,7 +34,7 @@
         SELECT * FROM teacher WHERE tno = #{tno}
     </select>
     <select id="getTno" resultType="java.lang.Boolean">
-        SELECT * FROM teacher WHERE tno = #{tno}
+        SELECT COUNT(*) FROM teacher WHERE tno = #{tno}
     </select>
     <select id="findAll" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher
