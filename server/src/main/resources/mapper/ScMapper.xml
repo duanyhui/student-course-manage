@@ -30,6 +30,21 @@
                 <if test="sct.tno != null">
                     AND teacher.tno LIKE CONCAT('%', #{sct.tno}, '%')
                 </if>
+                <if test="sct.sname !=null">
+                    AND student.sname LIKE CONCAT('%', #{sct.sname}, '%')
+                </if>
+                <if test="sct.tname !=null">
+                    AND teacher.tname LIKE CONCAT('%', #{sct.tname}, '%')
+                </if>
+                <if test="sct.cno !=null">
+                    AND course.cno LIKE CONCAT('%',#{sct.tno},'%')
+                </if>
+                <if test="sct.term !=null">
+                    AND ct.term LIKE CONCAT('%',#{sct.term},'%')
+                </if>
+                <if test="sct.cname !=null">
+                    AND course.cname LIKE CONCAT('%',#{sct.cname},'%')
+                </if>
                     AND sc.sno = student.sno
                     AND sc.ctid = ct.ctid
                     AND teacher.tno = ct.tno
@@ -46,6 +61,22 @@
                     <if test="sct.tno != null">
                         AND teacher.tno =#{sct.tno}
                     </if>
+                    <if test="sct.sname !=null">
+                    AND student.sname =#{sct.sname}
+                    </if>
+                    <if test="sct.tname !=null">
+                    AND teacher.tname= #{sct.tname}
+                    </if>
+                    <if test="sct.cno !=null">
+                    AND course.cno = #{sct.tno}
+                    </if>
+                    <if test="sct.term !=null">
+                    AND ct.term = #{sct.term}
+                    </if>
+                    <if test="sct.cname !=null">
+                    AND course.cname = #{sct.cname}
+                    </if>
+
                     AND sc.sno = student.sno
                     AND sc.ctid = ct.ctid
                     AND teacher.tno = ct.tno
