@@ -79,6 +79,16 @@ public class CourseController {
 //        }
 //
 //    }
+    @GetMapping("/findByCno/{cno}")
+    public Result findByCno(@PathVariable String cno){
+        try {
+            return Result.succ(courseService.findByCno(cno));
+        }
+        catch (DataAccessException e){
+            return Result.fail("查询失败");
+        }
+
+    }
 
     /**
      * 模糊查询课程

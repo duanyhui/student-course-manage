@@ -40,7 +40,7 @@ public class SCT {
 
     private String ctid;
 
-    private Integer grade;
+    private Float grade;
 
     private String fuzzy;
 }
