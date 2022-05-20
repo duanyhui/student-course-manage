@@ -56,7 +56,8 @@ public class ScController {
     @PostMapping("/delete")
     public Result delById(@RequestBody Sc sc) {
         try {
-            if(sc.getGrade()!=null)
+//            boolean flag= sc.getGrade()!=null;
+            if(sc.getGrade()==null)
             {
                 if (scService.delete(sc)) {
                     return Result.succ("删除成功");
