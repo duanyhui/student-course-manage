@@ -20,6 +20,8 @@ public class SCT {
 
     private String cno;
 
+    private Integer ccredit;
+
     private String sno;
 
     private String sname;
