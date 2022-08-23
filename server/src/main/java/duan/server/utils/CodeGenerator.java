@@ -18,11 +18,11 @@ public class CodeGenerator {
     }
 
     private static void generate() {
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/sjkks?serverTimezone=GMT%2b8", "root", "duan783809979")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/sjkks?serverTimezone=GMT%2b8", "root", "root")
                 .globalConfig(builder -> {
                     builder.author("duanyhui") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
-                            .fileOverride() // 覆盖已生成文件
+                            //.fileOverride() // 覆盖已生成文件
                             .outputDir("C:\\Users\\31165\\Desktop\\数据库课设\\课设\\server\\src\\main\\java\\"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
