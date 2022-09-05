@@ -48,5 +48,7 @@ public class Student implements Serializable {
       @ApiModelProperty("学院")
       private String college;
 
+      private String role;
+
 
 }
