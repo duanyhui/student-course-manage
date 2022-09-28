@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-04
  */
 public interface IAdminService extends IService<Admin> {
+    public Admin findByUid(Integer uid);
 
 }

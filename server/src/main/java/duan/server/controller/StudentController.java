@@ -3,9 +3,11 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
+import duan.server.service.impl.LoginServiceImpl;
 import duan.server.service.impl.StudentServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.Objects;
  * @author duanyhui
  * @since 2022-05-04
  */
+
+@Slf4j
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/student")
@@ -28,28 +32,29 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentService;
 
+    @Autowired
+    private LoginServiceImpl loginService;
+
     @PostMapping("/login")
     @ApiOperation(value = "登录接口", notes = "登录接口")
     @ApiParam(name = "sno",value = "学号",required = true)
-    public Result Login(@RequestBody Student student){
-        System.out.println("正在验证学生登陆 " + student);
+    public Result Login(@RequestBody Student student) throws Exception {
+        log.info("正在验证学号为" + student.getSno() + "的学生登陆");
         Student stu = studentService.findBySno(student.getSno());
         System.out.println("学生sno：" + stu);
 
-        if (stu == null || !stu.getPassword().equals(student.getPassword())) {
-
-
+        if(stu == null){
             return Result.fail("操作失败,账号或密码不正确");
         }
-        else {
-            return Result.succ(stu);
+        else{
+            return loginService.login(student);
         }
     }
 
 
     @PostMapping("/add")
     public Result add(@RequestBody Student student) {
-        System.out.println("正在添加学生 " + student);
+        log.info("正在添加学号为" + student.getSno() + "的学生");
         try {
             if (studentService.haveSno(student.getSno())) {
                 return Result.fail("添加失败,学号已存在");
@@ -71,7 +76,7 @@ public class StudentController {
 
     @PostMapping("/deleteBySno/{sno}")
     public Result deleteById(@PathVariable("sno") String sno) {
-        System.out.println("正在删除学生 sno为：" + sno);
+        log.info("正在删除学生 sno为：" + sno);
         try {
             if (studentService.deleteBySno(sno)) {
                 return Result.succ("删除成功");
@@ -89,7 +94,7 @@ public class StudentController {
     @PostMapping("/update")
     public Result updateStudent(@RequestBody Student student) {
         try {
-            System.out.println("更新 " + student);
+            log.info("更新学号为 " + student.getSno()+"的学生");
             if(studentService.updateByCno(student)) {
                 return Result.succ("更新成功");
             }

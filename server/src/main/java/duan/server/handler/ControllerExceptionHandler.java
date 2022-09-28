@@ -37,7 +37,7 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(AccessDeniedException.class)
 	public Result accessDeniedExceptionHandler(HttpServletRequest request, AccessDeniedException e) {
 		logger.error("Request URL : {}, Exception :", request.getRequestURL(), e);
-		return Result.fail("权限不足");
+		return Result.fail(e.getMessage());
 	}
 
 	/**

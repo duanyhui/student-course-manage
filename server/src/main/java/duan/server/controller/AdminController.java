@@ -4,6 +4,8 @@ package duan.server.controller;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Admin;
 import duan.server.service.impl.AdminServiceImpl;
+import duan.server.service.impl.LoginServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,29 +20,28 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
     @Autowired
     private AdminServiceImpl adminService;
 
+    @Autowired
+    private LoginServiceImpl loginService;
+
     @PostMapping("/login")
-    public boolean Boolean (@RequestBody Admin admin) {
-        System.out.println("正在验证管理员登陆 " + admin);
+    public Result Login (@RequestBody Admin admin) throws Exception {
+        log.info("正在验证管理员登陆 " + admin);
         Admin ad = adminService.findByUid(admin.getUid());
         System.out.println("管理员信息" + ad);
-        /*
-        * 有点bug不用Result返回了*/
-//        if (ad == null || !ad.getPassword().equals(admin.getPassword())) {
-//            Result res=Result.fail("登陆失败");
-//            return res;
-//        }
-        if (ad == null || !ad.getPassword().equals(admin.getPassword())) {
-
-            return false;
+        if (ad == null) {
+            return Result.fail("操作失败,账号或密码不正确");
         }
         else {
-            return true;
+            return loginService.login(admin);
         }
+    //    return loginService.login(admin);
+        //TODO 这里改了返回结果前端记得改
     }
     @GetMapping("/getbyuid")
     public Result getByUid (@RequestParam("uid") Integer uid) {

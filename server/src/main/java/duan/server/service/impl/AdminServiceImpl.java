@@ -21,7 +21,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Autowired
     private AdminMapper adminMapper;
 
+    @Override
     public Admin findByUid(Integer uid) {
         return adminMapper.findByUid(uid);
     }
+
 }

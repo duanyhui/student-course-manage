@@ -108,7 +108,7 @@ public class JwtUtil {
 
     }
 
-    private static JwtBuilder getJwtBuilder(String subject, Collection<? extends GrantedAuthority> authorities, String uuid) {
+    private static JwtBuilder getJwtBuilder(String subject, Collection<? extends  GrantedAuthority> authorities, String uuid) {
         String role = StringUtils.strip(authorities.toString(),"[]");
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey secretKey = generalKey();

@@ -3,6 +3,8 @@ package duan.server.service;
 import duan.server.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IStudentService extends IService<Student> {
 
+    public Student findBySno(String sno);
+    public List<Student> findByPage(Integer num, Integer size);
+    public List<Student> findBySearch(String sno, String sname, Integer fuzzy);
+    public Integer getLength();
+    public boolean updateByCno(Student student);
+    public boolean deleteBySno(String sno);
+    public String getTerm(String sno);
+    public boolean add(Student student);
+    public boolean haveSno(String sno);
 }

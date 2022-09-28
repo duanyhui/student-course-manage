@@ -6,6 +6,7 @@ import duan.server.entity.Teacher;
 import duan.server.mapper.TeacherMapper;
 import duan.server.service.ITeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import duan.server.utils.HashUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     }
 
     public boolean updateByTno(Teacher teacher) {
+        if (teacher.getPassword() != null) {
+            teacher.setPassword(HashUtils.getBC(teacher.getPassword()));
+        }
         return teacherMapper.updateByTno(teacher);
     }
 

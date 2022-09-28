@@ -24,36 +24,42 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     @Autowired
     private CtMapper ctMapper;
 
+    @Override
     public boolean add(Ct ct)  {return ctMapper.add(ct);}
 
-
+    @Override
     public boolean delByCt(Ct ct) {
         return ctMapper.deleteCt(ct);
     }
 
+    @Override
     public List<SCT> getByTno(String tno) {
         return ctMapper.getByTno(tno);
     }
 
+    @Override
     public List<SCT> getAll() {
         return ctMapper.getAll();
     }
 
+    @Override
     public List<SCT> findBySearch(SCT sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         System.out.println("模糊查询标志位：" + fuzzyInt);
         return ctMapper.findBySearch(sct, fuzzyInt);
     }
 
-
+    @Override
     public List<SCT> findByTno(String tno) {
         return ctMapper.findByTno(tno);
     }
 
+    @Override
     public List<SCT> findByTerm(String term) {
         return ctMapper.findByTerm(term);
     }
 
+    @Override
     public List<SCT> findByStudent(SCT sct, Integer fuzzyInt) {
         return ctMapper.findByStudent(sct,fuzzyInt);
     }

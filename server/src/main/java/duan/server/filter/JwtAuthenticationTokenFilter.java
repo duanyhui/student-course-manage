@@ -49,7 +49,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             //没有token，放行
             filterChain.doFilter(request, response);
             return;
-
         }
 
         //解析token
@@ -58,7 +57,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         try {
             Claims claims = JwtUtil.parseJWT(token);
             uid = claims.getSubject();
-            role= claims.get("role").toString();
+            role= claims.get("authorities").toString();
         } catch (Exception e) {
             //TODO 打印日志
 //            e.printStackTrace();
@@ -73,7 +72,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             case "ROLE_ROOT":
                 //管理员
                 //从redis中获取详细信息
-                LoginAdmin admin = redisCache.getCacheObject("admin:"+uid);
+                LoginAdmin admin = (LoginAdmin)redisCache.getCacheObject("adminuid:"+ uid);
                 if(Objects.isNull(admin)){
                     RedisException e = new RedisException("token失效，请重新登录");
                     logger.error(e.getMessage());
@@ -82,14 +81,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 }
 
                 //把用户信息放入Holders中，以便后续使用
-                UsernamePasswordAuthenticationToken authenticationToken =                //TODO 要获取权限信息放入authorities中
+                UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(admin,null,admin.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 break;
             case "ROLE_STUDENT":
                 //学生
                 //从redis中获取详细信息
-                LoginStudent student = redisCache.getCacheObject("student:"+uid);
+                LoginStudent student = redisCache.getCacheObject("studentuid:"+uid);
                 if(Objects.isNull(student)){
                     RedisException e = new RedisException("token失效，请重新登录");
                     logger.error(e.getMessage());
@@ -98,14 +97,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 }
 
                 //把用户信息放入Holders中，以便后续使用
-                UsernamePasswordAuthenticationToken authenticationToken1 =                //TODO 要获取权限信息放入authorities中
+                UsernamePasswordAuthenticationToken authenticationToken1 =
                         new UsernamePasswordAuthenticationToken(student,null,student.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken1);
                 break;
             case "ROLE_TEACHER":
                 //老师
                 //从redis中获取详细信息
-                LoginTeacher teacher = redisCache.getCacheObject("teacher:"+uid);
+                LoginTeacher teacher = redisCache.getCacheObject("teacheruid:"+uid);
                 if(Objects.isNull(teacher)){
                     RedisException e = new RedisException("token失效，请重新登录");
                     logger.error(e.getMessage());

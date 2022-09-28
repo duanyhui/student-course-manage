@@ -25,21 +25,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Autowired
     private CourseMapper courseMapper;
 
+    @Override
     public Course findCourseByCid(Integer id) {
         return courseMapper.findCourseByCid(id);
     }
 
-
-
+    @Override
     public boolean insertCourse(Course course) {
         return courseMapper.insertCourse(course);
     }
 
+    @Override
     public boolean delCourseByCno(String cno) {
         return courseMapper.deleteByCno(cno);
     }
 
-
+    @Override
     public boolean updateCourse(Course course) {
         return courseMapper.updateCourse(course);
     }
@@ -48,11 +49,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 //        return courseMapper.findAllCourse();
 //    }
 
+    @Override
     public List<Course> findBySearch(SCT sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         return courseMapper.findBySearch(sct,fuzzyInt);
     }
 
+    @Override
     public Course findByCno(String cno) {
         return courseMapper.findByCno(cno);
     }

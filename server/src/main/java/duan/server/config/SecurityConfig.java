@@ -2,6 +2,7 @@ package duan.server.config;
 
 
 import duan.server.filter.JwtAuthenticationTokenFilter;
+import duan.server.handler.AccessDeniedHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-//    @Autowired
-//    private AuthenticationEntryPointImpl authenticationEntryPoint;
+    @Autowired
+    private AccessDeniedHandlerImpl accessDeniedHandler;
 
 
 
@@ -50,20 +50,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                // 对于登录接口 允许匿名访问
-                .antMatchers("/*/login").anonymous()
+                // 难改 对于登录接口 允许所有人访问
+                .antMatchers("/admin/login").permitAll()
+                .antMatchers("/student/login").permitAll()
+                .antMatchers("/teacher/login").permitAll()
 
-                .antMatchers("/root/**").hasRole("ROOT")
-                .antMatchers("/user/**").hasAnyRole("USER","ROOT","STAFF")
-                // 主页允许所有人访问
-                .antMatchers("/home/*","/actuator/*").permitAll()
-//                .antMatchers("/testCors").hasAuthority("system:dept:list222")
+//                .antMatchers("/root/**").hasRole("ROOT")
+//                .antMatchers("/user/**").hasAnyRole("USER","ROOT","STAFF")
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
         //添加过滤器,将JwtAuthenticationTokenFilter（验证token有效性）添加到
         // UserNamePasswordAuthenticationFilter（验证密码）过滤器之前
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        //配置异常处理器
+        http.exceptionHandling()
+                //配置认证失败处理器
+                .accessDeniedHandler(accessDeniedHandler);
 
         //允许跨域
         http.cors();

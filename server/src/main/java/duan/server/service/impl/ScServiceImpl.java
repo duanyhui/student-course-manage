@@ -24,18 +24,22 @@ public class ScServiceImpl extends ServiceImpl<ScMapper, Sc> implements IScServi
     @Autowired
     private ScMapper scMapper;
 
+    @Override
     public boolean add(SCT sct) {
         return scMapper.add(sct);
     }
 
+    @Override
     public boolean delete(Sc sc) {
         return scMapper.delete(sc);
     }
 
+    @Override
     public boolean updateGrade(Sc sc) {
         return scMapper.updateGrade(sc);
     }
 
+    @Override
     public List<SCT> findBySearch(SCT sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         System.out.println("模糊查询标志位：" + fuzzyInt);

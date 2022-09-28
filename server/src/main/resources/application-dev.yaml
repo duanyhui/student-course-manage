@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sjkks?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
-    username: duan
-    password: duan
+    username: root
+    password: root
     # 热部署
   devtools:
     restart:
@@ -16,9 +16,9 @@ spring:
 mybatis-plus:
   type-aliases-package: com.duan.server.entity
   mapper-locations: classpath:mapper/*.xml
-  configuration:
+#  configuration:
     # 输出到日志
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 1000 * 60 * 60 * 24 * 3 三天
 token:
