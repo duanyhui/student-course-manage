@@ -30,13 +30,14 @@ public class ScController {
     @Autowired
     private StudentServiceImpl studentService;
 
+    //todo:学生选课学期id变String传给前端
     @PostMapping("/add")
     public Result add(@RequestBody SCT sct) {
         try {
-            String tterm =studentService.findBySno(sct.getSno()).getTerm();
-            String s=sct.getTerm();
+            Integer ttermid =studentService.findBySno(sct.getSno()).getTermid();
+            Integer s=sct.getTermid();
             //  一定要用equals，不能用==
-            if (Objects.equals(sct.getTerm(), studentService.findBySno(sct.getSno()).getTerm()))  //校验前端数据，判断学期是否一致
+            if (Objects.equals(sct.getTermid(), studentService.findBySno(sct.getSno()).getTermid()))  //校验前端数据，判断学期是否一致
             {
                 if (scService.add(sct)) {
                     return Result.succ("添加成功");

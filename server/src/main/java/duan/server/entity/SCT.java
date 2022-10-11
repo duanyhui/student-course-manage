@@ -34,6 +34,8 @@ public class SCT {
 
     private String tname;
 
+    private Integer termid;
+
     private String term;
 
     private String capacity;

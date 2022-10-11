@@ -40,15 +40,18 @@ public class Student implements Serializable {
       private String ssex;
 
       @ApiModelProperty("专业")
-      private String major;
+      private Integer majorid;
 
       @ApiModelProperty("就读学期")
-      private String term;
+      private Integer termid;
 
       @ApiModelProperty("学院")
-      private String college;
+      private String collegeid;
 
       private String role;
+
+      @ApiModelProperty("培养计划id")
+      private Integer planid;
 
 
 }
