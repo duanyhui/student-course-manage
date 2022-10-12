@@ -1,5 +1,6 @@
 package duan.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
 import duan.server.entity.Teacher;
@@ -36,19 +37,23 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         return teacherMapper.findByTno(tno);
     }
 
-    public boolean insertTeacher(Teacher teacher) {
-        return teacherMapper.insertTeacher(teacher);
+    public int insertTeacher(Teacher teacher) {
+        Teacher tea = new Teacher(teacher);
+        tea.setPassword(HashUtils.getBC(teacher.getPassword()));
+        return teacherMapper.insert(tea);
+//        return teacherMapper.insertTeacher(teacher);
     }
 
     public boolean deleteByTno(String tno) {
         return teacherMapper.deleteByTno(tno);
     }
 
-    public boolean updateByTno(Teacher teacher) {
+    public int updateByTno(Teacher teacher) {
         if (teacher.getPassword() != null) {
             teacher.setPassword(HashUtils.getBC(teacher.getPassword()));
         }
-        return teacherMapper.updateByTno(teacher);
+        return teacherMapper.update(teacher,new LambdaQueryWrapper<Teacher>().eq(Teacher::getTno, teacher.getTno()));
+//        return teacherMapper.updateByTno(teacher);
     }
 
     public boolean getTno(String tno) {

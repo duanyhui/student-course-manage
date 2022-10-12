@@ -1,5 +1,6 @@
 package duan.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
 import duan.server.mapper.StudentMapper;
@@ -77,11 +78,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public boolean updateByCno(Student student) {
+    public int updateByCno(Student student) {
         if (student.getPassword() != null) {
             student.setPassword(HashUtils.getBC(student.getPassword()));
         }
-        return studentMapper.updateByCno(student);
+        Student stu = new Student(student);
+        return studentMapper.update(stu, new LambdaQueryWrapper<Student>().eq(Student::getSno, student.getSno()));
     }
 
     @Override
@@ -95,8 +97,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public boolean add(Student student) {
-        return studentMapper.add(student);
+    public int add(Student student) {
+        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
+        Student stu = new Student(student);
+        stu.setPassword(HashUtils.getBC(student.getPassword()));
+        return studentMapper.insert(stu);
+//        return studentMapper.add(student);
     }
 
     @Override

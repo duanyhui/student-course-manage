@@ -62,7 +62,7 @@ public class StudentController {
             if(student.getPassword()==null){
                 student.setPassword("123456");
             }
-            if (studentService.add(student)) {
+            if (studentService.add(student)==1) {
                 return Result.succ("添加成功,默认密码为123456");
             }
             else {
@@ -70,7 +70,7 @@ public class StudentController {
             }
         }
         catch (DataAccessException e) {
-            return Result.fail("添加学生失败,缺少必要参数");
+            return Result.fail("添加学生失败,缺少必要参数或者参数错误");
         }
     }
 
@@ -95,7 +95,7 @@ public class StudentController {
     public Result updateStudent(@RequestBody Student student) {
         try {
             log.info("更新学号为 " + student.getSno()+"的学生");
-            if(studentService.updateByCno(student)) {
+            if(studentService.updateByCno(student)==1) {
                 return Result.succ("更新成功");
             }
             else {
