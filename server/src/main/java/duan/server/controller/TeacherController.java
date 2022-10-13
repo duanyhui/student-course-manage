@@ -2,8 +2,9 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
-import duan.server.entity.Student;
+import duan.server.entity.Ct;
 import duan.server.entity.Teacher;
+import duan.server.service.impl.CtServiceImpl;
 import duan.server.service.impl.LoginServiceImpl;
 import duan.server.service.impl.TeacherServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -152,6 +153,18 @@ public class TeacherController {
         catch (Exception e) {
             return Result.fail("查询老师信息失败,请检查参数");
         }
+    }
+
+    @Autowired
+    private CtServiceImpl ctService;
+    @PostMapping("/open_course")
+    public Result openCourse(@RequestBody Ct ct) throws Exception{
+        return ctService.openCourse(ct);
+    }
+
+    @GetMapping("/get_classteacherlist/{tno}")
+    public Result getClassTeacherList(@PathVariable("tno") String tno) throws Exception{
+        return ctService.getClassTeacherListByTno(tno);
     }
 
 }

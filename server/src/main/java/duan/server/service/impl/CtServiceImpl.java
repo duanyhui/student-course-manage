@@ -1,6 +1,7 @@
 package duan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import duan.server.entity.SCT;
 import duan.server.mapper.CtMapper;
@@ -72,5 +73,39 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     @Override
     public List<SCT> findByStudent(SCT sct, Integer fuzzyInt) {
         return ctMapper.findByStudent(sct,fuzzyInt);
+    }
+
+    /**
+     * 老师开课
+     * @param ct
+     * @return msg
+     */
+    @Override
+    public Result openCourse(Ct ct) {
+        LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
+        if (ctMapper.insert(ct)==1){
+            return Result.succ("开课成功");
+        }
+        return Result.fail("开课失败,请检查是否重复开课（同一时间只能开一门课）");
+    }
+
+    /**
+     * -----------------------------------------------------------------------------------------------------------
+     * 2022-10-13
+     * @return
+     */
+    @Override
+    public Result getClassTeacherList() {
+        return Result.succ(ctMapper.selectList(null));
+    }
+
+    @Override
+    public Result getClassTeacherListByTno(String tno) {
+        LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
+        queryWrapper.eq(Ct::getTno,tno);
+        if (ctMapper.selectList(queryWrapper).size()==0){
+            return Result.fail("该教师未开课");
+        }
+        return Result.succ(ctMapper.selectList(queryWrapper));
     }
 }

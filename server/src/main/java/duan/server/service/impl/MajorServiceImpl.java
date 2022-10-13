@@ -36,4 +36,13 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
     public Result getMajorList() {
         return Result.succ(majorMapper.selectList(null));
     }
+
+    @Override
+    public Result getMajor(Integer collegeid, Integer majorid) {
+        LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Major::getCollegeid, collegeid);
+        queryWrapper.eq(Major::getMajorid, majorid);
+        queryWrapper.select(Major::getMajorname);
+        return Result.succ(majorMapper.selectOne(queryWrapper).getMajorname());
+    }
 }

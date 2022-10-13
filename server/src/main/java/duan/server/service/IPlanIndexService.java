@@ -1,5 +1,6 @@
 package duan.server.service;
 
+import duan.server.commom.lang.Result;
 import duan.server.entity.PlanIndex;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IPlanIndexService extends IService<PlanIndex> {
 
+    Result createPlanIndex(PlanIndex planIndex) throws Exception;
+
+    Result deletePlanIndex(PlanIndex planIndex);
 }

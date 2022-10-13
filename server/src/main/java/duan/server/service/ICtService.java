@@ -1,5 +1,6 @@
 package duan.server.service;
 
+import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import com.baomidou.mybatisplus.extension.service.IService;
 import duan.server.entity.SCT;
@@ -24,4 +25,9 @@ public interface ICtService extends IService<Ct> {
     public List<SCT> findByTerm(String term);
     public List<SCT> findByStudent(SCT sct, Integer fuzzyInt);
 
+    Result openCourse(Ct ct);
+
+    Result getClassTeacherList();
+
+    Result getClassTeacherListByTno(String tno);
 }
