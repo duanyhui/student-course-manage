@@ -17,4 +17,5 @@ public interface IMajorService extends IService<Major> {
     Result getMajor(Integer collegeid) throws Exception;
 
     Result getMajorList();
+
 }

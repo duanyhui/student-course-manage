@@ -2,6 +2,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.mapper.MajorMapper;
+import duan.server.service.impl.ClassTimeServiceImpl;
 import duan.server.service.impl.CollegeServiceImpl;
 import duan.server.service.impl.MajorServiceImpl;
 import io.swagger.models.auth.In;
@@ -28,6 +29,8 @@ public class utils {
     private CollegeServiceImpl collegeService;
     @Autowired
     private MajorServiceImpl majorService;
+    @Autowired
+    private ClassTimeServiceImpl classTimeService;
 
     @GetMapping("/getcollege/{collegeid}")
     public Result getCollege (@PathVariable("collegeid") Integer collegeid) throws Exception {
@@ -47,5 +50,13 @@ public class utils {
     @GetMapping("/getmajorlist")
     public Result getMajorList() throws Exception{
         return majorService.getMajorList();
+    }
+    @GetMapping("/getclasstimebyid/{classtimeid}")
+    public Result getClassTimeById(@PathVariable("classtimeid") Integer classtimeid) throws Exception{
+        return classTimeService.getClassTimeById(classtimeid);
+    }
+    @GetMapping("/getclasstimelist")
+    public Result getClassTimeList() throws Exception{
+        return classTimeService.getClassTimeList();
     }
 }

@@ -15,8 +15,8 @@ import java.util.List;
  * @since 2022-05-10
  */
 public interface ICtService extends IService<Ct> {
-    public boolean add(Ct ct);
-    public boolean delByCt(Ct ct);
+    public int add(Ct ct);
+    public int delByCt(Ct ct);
     public List<SCT> getByTno(String tno);
     public List<SCT> getAll();
     public List<SCT> findBySearch(SCT sct, Integer fuzzyInt);

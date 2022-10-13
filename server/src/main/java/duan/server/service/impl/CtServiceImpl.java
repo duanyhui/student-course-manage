@@ -1,5 +1,6 @@
 package duan.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.entity.Ct;
 import duan.server.entity.SCT;
 import duan.server.mapper.CtMapper;
@@ -25,11 +26,20 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     private CtMapper ctMapper;
 
     @Override
-    public boolean add(Ct ct)  {return ctMapper.add(ct);}
+    public int add(Ct ct)  {
+        LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
+        queryWrapper.eq(Ct::getTno,ct.getTno());
+        return ctMapper.insert(ct);
+    }
 
     @Override
-    public boolean delByCt(Ct ct) {
-        return ctMapper.deleteCt(ct);
+    public int delByCt(Ct ct) {
+        LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
+        queryWrapper.eq(Ct::getTno,ct.getTno());
+        queryWrapper.eq(Ct::getCno,ct.getCno());
+        queryWrapper.eq(Ct::getTermid,ct.getTermid());
+        return ctMapper.delete(queryWrapper);
+
     }
 
     @Override

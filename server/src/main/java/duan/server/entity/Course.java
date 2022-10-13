@@ -36,5 +36,7 @@ public class Course implements Serializable {
       @ApiModelProperty("课程学分")
       private Integer ccredit;
 
+      private String type;
+
 
 }

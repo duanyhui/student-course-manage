@@ -29,8 +29,9 @@ public class CtController {
     @PostMapping("/add")
     public Result add(@RequestBody Ct ct) {
         try {
-            if(ct.getTerm()!=null) {
-                if (ctService.add(ct)) {
+            if(ct.getTermid()!=null) {
+                //todo 加一个上课时间
+                if (ctService.add(ct)==1) {
                     return Result.succ("添加成功");
                 } else {
                     return Result.fail("添加失败");
@@ -48,7 +49,7 @@ public class CtController {
     @PostMapping("/delete")
     public Result delByCt(@RequestBody Ct ct) {
         try {
-            if (ctService.delByCt(ct)) {
+            if (ctService.delByCt(ct)!=0) {
                 return Result.succ("删除成功");
             } else {
                 return Result.fail("删除失败,不存在该开课信息");

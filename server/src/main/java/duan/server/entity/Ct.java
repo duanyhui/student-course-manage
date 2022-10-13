@@ -30,7 +30,10 @@ public class Ct implements Serializable {
         private String tno;
 
       @ApiModelProperty("开课学期")
-        private String term;
+        private Integer termid;
+
+        @ApiModelProperty("开课时间")
+        private Integer classtimeid;
 
       @ApiModelProperty("开课容量")
       private Integer capacity;
