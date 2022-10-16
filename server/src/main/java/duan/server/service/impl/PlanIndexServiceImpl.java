@@ -39,12 +39,12 @@ public class PlanIndexServiceImpl extends ServiceImpl<PlanIndexMapper, PlanIndex
     }
 
     @Override
-    public Result deletePlanIndex(PlanIndex planIndex) {
+    public Result deletePlanIndex(Integer planIndex) {
         LambdaQueryWrapper<PlanIndex> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(PlanIndex::getCollegeid, planIndex.getCollegeid());
-        queryWrapper.eq(PlanIndex::getMajorid, planIndex.getMajorid());
-        queryWrapper.eq(PlanIndex::getTermid, planIndex.getTermid());
-
+//        queryWrapper.eq(PlanIndex::getCollegeid, planIndex.getCollegeid());
+//        queryWrapper.eq(PlanIndex::getMajorid, planIndex.getMajorid());
+//        queryWrapper.eq(PlanIndex::getTermid, planIndex.getTermid());
+        queryWrapper.eq(PlanIndex::getPlanid, planIndex);
         if(planIndexMapper.delete(queryWrapper) == 1){
             return Result.succ("删除成功");
         }

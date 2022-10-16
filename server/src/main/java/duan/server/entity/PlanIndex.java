@@ -32,5 +32,13 @@ public class PlanIndex implements Serializable {
 
       private Integer termid;
 
-
+  @Override
+  public String toString() {
+    return "PlanIndex{" +
+        "planid=" + planid +
+        ", majorid=" + majorid +
+        ", collegeid=" + collegeid +
+        ", termid=" + termid +
+    "}";
+  }
 }

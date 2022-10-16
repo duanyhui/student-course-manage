@@ -43,6 +43,9 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         queryWrapper.eq(Major::getCollegeid, collegeid);
         queryWrapper.eq(Major::getMajorid, majorid);
         queryWrapper.select(Major::getMajorname);
+        if (majorMapper.selectOne(queryWrapper) == null) {
+            throw new RuntimeException("专业不存在");
+        }
         return Result.succ(majorMapper.selectOne(queryWrapper).getMajorname());
     }
 }

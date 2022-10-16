@@ -5,12 +5,14 @@ spring:
     username: root
     password: root
     # 热部署
+
   devtools:
     restart:
-      enabled: true
-      additional-paths: sre/main/java
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**  #排除文件(不重启项目)
   freemarker:
-    cache: false
+    cache: false    #页面不加载缓存，修改即时生效
 
 
 mybatis-plus:

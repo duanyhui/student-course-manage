@@ -16,5 +16,5 @@ public interface IPlanIndexService extends IService<PlanIndex> {
 
     Result createPlanIndex(PlanIndex planIndex) throws Exception;
 
-    Result deletePlanIndex(PlanIndex planIndex);
+    Result deletePlanIndex(Integer planIndex);
 }

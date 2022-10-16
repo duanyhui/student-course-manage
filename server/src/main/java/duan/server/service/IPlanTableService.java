@@ -1,7 +1,11 @@
 package duan.server.service;
 
+import duan.server.commom.lang.Result;
+import duan.server.entity.Course;
 import duan.server.entity.PlanTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IPlanTableService extends IService<PlanTable> {
 
+    Result createPlanTable(PlanTable planTable) throws Exception;
+
+    Result deletePlanTable(Integer id);
+
+    Result deletePlanTableByPlanId(Integer planid);
+
+    Result getPlanTableList();
+
+    Result updatePlanTableById(PlanTable planTable);
+
+    Result getPlanTableListByPlanId(Integer planid);
+
+    List<Course> getCourseListByPlanid(Integer planid);
+
+    List<Course> getCourseListBySno(String sno);
 }

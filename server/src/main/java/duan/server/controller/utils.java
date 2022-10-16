@@ -38,29 +38,37 @@ public class utils {
 
     @GetMapping("/get_college/{collegeid}")
     public Result getCollege (@PathVariable("collegeid") Integer collegeid) throws Exception {
+        log.info("正在查询学院id为"+collegeid+"的信息");
         return collegeService.getCollege(collegeid);
     }
 
     @GetMapping("/get_collegelist")
     public Result getCollegeList () throws Exception {
+        log.info("正在获取学院列表");
         return collegeService.getCollegeList();
     }
 
-    @GetMapping("/get_major/{collegeid}")
-    public Result getMajor(@PathVariable("collegeid") Integer collegeid) throws Exception{
+//    @GetMapping("/get_major")
+//    public Result getMajor(Integer collegeid) throws Exception{
+//        log.info("学院id"+collegeid+"正在获取专业列表");
+//        return majorService.getMajor(collegeid);
+//    }
+    @GetMapping("/get_major")
+    public Result getMajor( Integer collegeid, Integer majorid) throws Exception{
+        log.info("学院id"+collegeid+"正在获取专业列表");
+        if(collegeid!=null&& majorid!=null){
+            return majorService.getMajor(collegeid,majorid);
+        }
         return majorService.getMajor(collegeid);
-    }
-    @GetMapping("/get_major/{collegeid}/{majorid}")
-    public Result getMajor(@PathVariable("collegeid") Integer collegeid,@PathVariable("majorid") Integer majorid) throws Exception{
-        return majorService.getMajor(collegeid,majorid);
+
     }
 
     @GetMapping("/get_majorlist")
     public Result getMajorList() throws Exception{
         return majorService.getMajorList();
     }
-    @GetMapping("/get_classtime_byid/{classtimeid}")
-    public Result getClassTimeById(@PathVariable("classtimeid") Integer classtimeid) throws Exception{
+    @GetMapping("/get_classtime_byid")
+    public Result getClassTimeById(@RequestParam("classtimeid") Integer classtimeid) throws Exception{
         return classTimeService.getClassTimeById(classtimeid);
     }
     @GetMapping("/get_classtime_list")

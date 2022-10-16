@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duan.server.mapper.PlanTableMapper">
 
+    <select id="getCourseListByPlanid" resultType="duan.server.entity.Course">
+        SELECT course.* FROM course,plan_table
+        WHERE plan_table.planid = #{planid}
+        AND plan_table.cid = course.cid
+    </select>
+    <select id="getCourseListBySno" resultType="duan.server.entity.Course">
+        SELECT course.* FROM course,plan_table,student
+        WHERE student.sno = #{sno}
+        AND student.planid = plan_table.planid
+        AND plan_table.cid = course.cid
+    </select>
 </mapper>
