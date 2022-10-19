@@ -49,8 +49,8 @@ public class Student implements Serializable {
       @ApiModelProperty("就读学期")
       private Integer termid;
 
-      @ApiModelProperty("学院")
-      private String collegeid;
+      @ApiModelProperty("学院id")
+      private Integer collegeid;
 
       private String role;
 

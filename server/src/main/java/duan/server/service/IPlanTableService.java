@@ -32,4 +32,8 @@ public interface IPlanTableService extends IService<PlanTable> {
     List<Course> getCourseListByPlanid(Integer planid);
 
     List<Course> getCourseListBySno(String sno);
+
+    List<Course> getPlanTableBySno(String sno);
+
+    List<Course> getCourseList(Integer collegeid, Integer majorid, Integer termid);
 }

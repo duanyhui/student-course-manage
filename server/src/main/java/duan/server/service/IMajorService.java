@@ -19,4 +19,6 @@ public interface IMajorService extends IService<Major> {
     Result getMajorList();
 
     Result getMajor(Integer collegeid, Integer majorid);
+
+    Integer createMajor(String majorname, Integer collegeid);
 }

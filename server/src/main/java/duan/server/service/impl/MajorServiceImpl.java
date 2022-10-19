@@ -22,6 +22,31 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
 
     @Autowired
     private MajorMapper majorMapper;
+
+    @Override
+    public Integer createMajor(String majorname, Integer collegeid) {
+
+        LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Major::getMajorname, majorname);
+        queryWrapper.eq(Major::getCollegeid, collegeid);
+        if (majorMapper.selectOne(queryWrapper) != null) {
+            throw new RuntimeException("专业已存在");
+        }
+        Major major = new Major();
+        major.setMajorname(majorname);
+        major.setCollegeid(collegeid);
+
+        try {
+            if (majorMapper.insert(major) == 1) {
+                return majorMapper.selectOne(queryWrapper).getMajorid();
+            }
+            return null;
+        }
+        catch (Exception e){
+            throw new RuntimeException("创建专业失败,专业名重复");
+        }
+    }
+
     @Override
     public Result getMajor(Integer collegeid) throws Exception {
         LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
@@ -29,7 +54,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         if(majorMapper.selectList(queryWrapper).size() == 0){
             throw new Exception("学院不存在");
         }
-        return Result.succ(majorMapper.selectOne(queryWrapper));
+        return Result.succ(majorMapper.selectList(queryWrapper));
     }
 
     @Override
@@ -48,4 +73,6 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         }
         return Result.succ(majorMapper.selectOne(queryWrapper).getMajorname());
     }
+
+
 }

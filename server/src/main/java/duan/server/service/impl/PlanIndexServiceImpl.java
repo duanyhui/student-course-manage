@@ -3,11 +3,15 @@ package duan.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.PlanIndex;
+import duan.server.entity.PlanIndex_vo;
 import duan.server.mapper.PlanIndexMapper;
 import duan.server.service.IPlanIndexService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
  * @author duanyhui
  * @since 2022-10-12
  */
+
 @Service
 public class PlanIndexServiceImpl extends ServiceImpl<PlanIndexMapper, PlanIndex> implements IPlanIndexService {
 
@@ -49,5 +54,23 @@ public class PlanIndexServiceImpl extends ServiceImpl<PlanIndexMapper, PlanIndex
             return Result.succ("删除成功");
         }
         return Result.fail("删除失败，不存在该条记录");
+    }
+
+    @Override
+    public Integer getPlanid(Integer collegeid, Integer majorid, Integer termid) throws Exception {
+        LambdaQueryWrapper<PlanIndex> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(PlanIndex::getCollegeid, collegeid);
+        queryWrapper.eq(PlanIndex::getMajorid, majorid);
+        queryWrapper.eq(PlanIndex::getTermid, termid);
+        queryWrapper.select(PlanIndex::getPlanid);
+        if(planIndexMapper.selectOne(queryWrapper) == null){
+            throw new Exception("未开设该专业该学期的教学计划，请先创建教学计划");
+        }
+        return planIndexMapper.selectOne(queryWrapper).getPlanid();
+    }
+
+    @Override
+    public List<PlanIndex_vo> getPlanIndexList() {
+        return planIndexMapper.getPlanIndexList();
     }
 }

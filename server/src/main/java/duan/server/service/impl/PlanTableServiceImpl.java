@@ -98,6 +98,16 @@ public class PlanTableServiceImpl extends ServiceImpl<PlanTableMapper, PlanTable
     }
 
     @Override
+    public List<Course> getPlanTableBySno(String sno) {
+        return planTableMapper.getPlanTableBySno(sno);
+    }
+
+    @Override
+    public List<Course> getCourseList(Integer collegeid, Integer majorid, Integer termid) {
+        return planTableMapper.getCourseList(collegeid,majorid,termid);
+    }
+
+    @Override
     public Result getPlanTableList() {
         return Result.succ(planTableMapper.selectList(null));
     }

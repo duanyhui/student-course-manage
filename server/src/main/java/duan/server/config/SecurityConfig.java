@@ -54,11 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/login").permitAll()
                 .antMatchers("/student/login").permitAll()
                 .antMatchers("/teacher/login").permitAll()
+                        .antMatchers("/plan/*").permitAll();
 
 //                .antMatchers("/root/**").hasRole("ROOT")
 //                .antMatchers("/user/**").hasAnyRole("USER","ROOT","STAFF")
                 // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+//                .anyRequest().authenticated();
 
         //添加过滤器,将JwtAuthenticationTokenFilter（验证token有效性）添加到
         // UserNamePasswordAuthenticationFilter（验证密码）过滤器之前

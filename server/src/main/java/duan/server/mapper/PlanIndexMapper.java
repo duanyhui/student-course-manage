@@ -2,7 +2,10 @@ package duan.server.mapper;
 
 import duan.server.entity.PlanIndex;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import duan.server.entity.PlanIndex_vo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PlanIndexMapper extends BaseMapper<PlanIndex> {
 
+    List<PlanIndex_vo> getPlanIndexList();
 }

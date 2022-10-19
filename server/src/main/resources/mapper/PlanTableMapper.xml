@@ -13,4 +13,18 @@
         AND student.planid = plan_table.planid
         AND plan_table.cid = course.cid
     </select>
+    <select id="getPlanTableBySno" resultType="duan.server.entity.Course">
+        SELECT course.* FROM course,plan_table,student
+        WHERE student.sno = #{sno}
+        AND student.planid = plan_table.planid
+        AND plan_table.cid = course.cid
+    </select>
+    <select id="getCourseList" resultType="duan.server.entity.Course">
+        SELECT course.* FROM course,plan_table,plan_index
+        WHERE plan_table.cid = course.cid
+        AND plan_index.collegeid = #{collegeid}
+        AND plan_index.majorid = #{majorid}
+        AND plan_index.planid = plan_table.planid
+        AND plan_index.termid = #{termid}
+    </select>
 </mapper>

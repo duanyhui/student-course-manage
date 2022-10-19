@@ -2,13 +2,17 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
+import duan.server.entity.Course;
 import duan.server.entity.PlanIndex;
+import duan.server.entity.PlanIndex_vo;
 import duan.server.entity.PlanTable;
 import duan.server.service.impl.PlanIndexServiceImpl;
 import duan.server.service.impl.PlanTableServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @author duanyhui
  * @since 2022-10-12
  */
-
+@CrossOrigin("*")
 @Slf4j
 @RestController
 @RequestMapping("/plan")
@@ -37,8 +41,16 @@ public class PlanController {
     public Result createPlanIndex(@RequestBody PlanIndex planIndex) throws Exception {
         log.info("正在创建开设培养计划的索引");
         log.info(planIndex.toString());
-        return planIndexService.createPlanIndex(planIndex);
+        // 直接创建8个学期的培养计划索引表
+        for (int i = 1; i <= 8; i++) {
+            planIndex.setTermid(i);
+            planIndexService.createPlanIndex(planIndex);
+        }
+        return Result.succ("创建成功");
     }
+
+
+
     @PostMapping("/delete_plan_index")
     public Result deletePlanIndex(@RequestBody PlanIndex planIndex) throws Exception {
         log.info("正在删除开设培养计划的索引id为"+planIndex.getPlanid());
@@ -55,7 +67,9 @@ public class PlanController {
     public Result createPlanTable(@RequestBody PlanTable planTable) throws Exception {
         log.info("正在创建开设培养计划的表");
         log.info(planTable.toString());
+
         return planTableService.createPlanTable(planTable);
+
     }
 
 
@@ -106,6 +120,37 @@ public class PlanController {
 
         }
     }
+
+    @GetMapping("/get_plan_index_list")
+    public Result getPlanIndexList() throws Exception {
+        log.info("正在获取所有开设培养计划的索引");
+        List<PlanIndex_vo> planIndex_vo = planIndexService.getPlanIndexList();
+
+        return Result.succ(planIndex_vo);
+    }
+
+    @GetMapping("/get_course_list_by_sno")
+    public Result getPlanTableBySno(@RequestParam("sno") String sno) throws Exception {
+        log.info("正在获取学生的培养计划");
+        log.info("sno为"+sno);
+        List<Course> course = planTableService.getPlanTableBySno(sno);
+        return Result.succ(course);
+    }
+
+    @GetMapping("/get_course_list")
+    public Result getCourseList(Integer collegeid,Integer majorid,Integer termid) throws Exception {
+        log.info("正在获取培养计划对应的课程列表");
+        log.info("collegeid为"+collegeid+"majorid为"+majorid+"termid为"+termid);
+        List<Course> course = planTableService.getCourseList(collegeid,majorid,termid);
+        return Result.succ(course);
+    }
+
+//    @GetMapping("/get_plan_table_list")
+//    public Result getPlanTableList() throws Exception {
+//        log.info("正在获取所有开设培养计划的表");
+//        List<PlanTable_vo> planTable_vo = planTableService.getPlanTableList();
+//        return Result.succ(planTable_vo);
+//    }
 
 
 }

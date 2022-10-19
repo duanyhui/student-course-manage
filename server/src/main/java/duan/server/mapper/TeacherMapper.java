@@ -2,6 +2,7 @@ package duan.server.mapper;
 
 import duan.server.entity.Teacher;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import duan.server.entity.Teacher_vo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,7 +34,8 @@ public interface TeacherMapper extends BaseMapper<Teacher> {
     boolean getTno(@Param("tno") String tno);
 
 
-    List<Teacher> findBySearch(@Param("teacher") Teacher teacher ,@Param("fuzzy") Integer fuzzy);
+    List<Teacher_vo> findBySearch(@Param("tea") Teacher teacher);
 
 
+    List<Teacher_vo> findBySearch_mohu(@Param("tea")Teacher teacher);
 }

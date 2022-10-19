@@ -35,6 +35,6 @@ public class ClassTimeServiceImpl extends ServiceImpl<ClassTimeMapper, ClassTime
 
     @Override
     public Result getClassTimeList() {
-        return Result.succ(baseMapper.selectList(null));
+        return Result.succ(classTimeMapper.selectList(null));
     }
 }

@@ -3,6 +3,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
+import duan.server.entity.Student_vo;
 import duan.server.service.impl.LoginServiceImpl;
 import duan.server.service.impl.StudentServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -53,7 +54,7 @@ public class StudentController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody Student student) {
+    public Result add(@RequestBody Student student) throws Exception {
         log.info("正在添加学号为" + student.getSno() + "的学生");
         try {
             if (studentService.haveSno(student.getSno())) {
@@ -92,7 +93,7 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public Result updateStudent(@RequestBody Student student) {
+    public Result updateStudent(@RequestBody Student student) throws Exception {
         try {
             log.info("更新学号为 " + student.getSno()+"的学生");
             if(studentService.updateByCno(student)==1) {
@@ -102,7 +103,7 @@ public class StudentController {
                 return Result.fail("更新失败,没有这个学生");
             }
         }
-        catch (Exception e) {
+        catch (DataAccessException e) {
             return Result.fail("更新学生信息失败，存在外键依赖");
         }
     }
@@ -117,7 +118,8 @@ public class StudentController {
         try {
             Integer fuzzy = (Objects.equals(student.getPassword(), "fuzzy")) ? 1 : 0;
 
-            List<Student> list = studentService.findBySearch(student.getSno(), student.getSname(), fuzzy);
+            List<Student_vo> list = studentService.findBySearch(student.getSno(), student.getSname(), fuzzy);
+
             return Result.succ(list);
         }
         catch (Exception e) {
@@ -125,10 +127,10 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/getbysno/{sno}")
+    @GetMapping("/getbysno")
     @ApiOperation(value = "通过sno获取学生信息", notes = "通过sno获取学生信息")
     @ApiParam(name = "sno",value = "学号",required = true)
-    public Result getBySno(@PathVariable("sno") String sno){
+    public Result getBySno(@RequestParam("sno") String sno){
         try {
 
             if (studentService.findBySno(sno)==null){
@@ -143,6 +145,25 @@ public class StudentController {
         catch (Exception e) {
             return Result.fail("查询学生信息失败,没有这个学生");
             }
+    }
+
+    @GetMapping("/getbysno_vo")
+    @ApiOperation(value = "通过sno获取学生信息", notes = "通过sno获取学生信息")
+    @ApiParam(name = "sno",value = "学号",required = true)
+    public Result getBySno_vo(@RequestParam("sno") String sno){
+        try {
+
+            if (studentService.findBySno(sno)==null){
+                return Result.fail("查询失败,没有这个学生");
+            }
+            else{
+                Student_vo stu=studentService.findBySno_vo(sno);
+                return Result.succ(stu);
+            }
+        }
+        catch (Exception e) {
+            return Result.fail("查询学生信息失败,没有这个学生");
+        }
     }
 
     /**

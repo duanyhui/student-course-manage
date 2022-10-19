@@ -4,6 +4,7 @@ package duan.server.controller;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import duan.server.entity.Teacher;
+import duan.server.entity.Teacher_vo;
 import duan.server.service.impl.CtServiceImpl;
 import duan.server.service.impl.LoginServiceImpl;
 import duan.server.service.impl.TeacherServiceImpl;
@@ -145,9 +146,8 @@ public class TeacherController {
             /**
              * fuzzy为模糊查询标志位，当传入的teacher的pwd为fuzzy时，模糊查询
              */
-            List<Teacher> list = teacherService.findBySearch(teacher.getTno(), teacher.getTname(), fuzzy);
-            System.out.println("查看list " + list);
-            list.forEach(tea -> tea.setPassword(""));  //密码设置为空
+            List<Teacher_vo> list = teacherService.findBySearch(teacher.getTno(), teacher.getTname(), fuzzy);
+
             return Result.succ(list);
         }
         catch (Exception e) {

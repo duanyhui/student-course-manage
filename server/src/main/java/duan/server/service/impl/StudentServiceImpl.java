@@ -1,9 +1,10 @@
 package duan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
+import duan.server.entity.Student_vo;
 import duan.server.mapper.StudentMapper;
+import duan.server.service.IPlanIndexService;
 import duan.server.service.IStudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import duan.server.utils.HashUtils;
@@ -58,17 +59,21 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     /**
      * 条件查询学生总数，fuzzy为模糊查询标志位,为0时精确查询，为1时模糊查询
+     * @return
      */
     @Override
-    public List<Student> findBySearch(String sno, String sname, Integer fuzzy) {
+    public List<Student_vo> findBySearch(String sno, String sname, Integer fuzzy) {
         Student student = new Student();
         student.setSno(sno);
         student.setSname(sname);
         fuzzy = (fuzzy == 1) ? 1 : 0;
 
         System.out.println("模糊查询标志位：" + fuzzy);
+        if(fuzzy == 1){
+           return studentMapper.findBySearch_mohu(student);
+        }
 
-        return studentMapper.findBySearch(student, fuzzy);
+        return studentMapper.findBySearch(student);
 
     }
 
@@ -78,7 +83,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public int updateByCno(Student student) {
+    public int updateByCno(Student student) throws Exception {
+
+        //todo 专业和学院不能修改
+        student.setCollegeid(studentMapper.findBySno(student.getSno()).getCollegeid());
+        student.setMajorid(studentMapper.findBySno(student.getSno()).getMajorid());
+        if(student.getTermid()!=null){
+            Integer planid = planIndexService.getPlanid(student.getCollegeid(), student.getMajorid(), student.getTermid());
+            student.setPlanid(planid);
+        }
         if (student.getPassword() != null) {
             student.setPassword(HashUtils.getBC(student.getPassword()));
         }
@@ -96,8 +109,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return studentMapper.getTerm(sno);
     }
 
+    @Autowired
+    private IPlanIndexService planIndexService;
     @Override
-    public int add(Student student) {
+    public int add(Student student) throws Exception {
+        Integer planid = planIndexService.getPlanid(student.getCollegeid(), student.getMajorid(), student.getTermid());
+        student.setPlanid(planid);
         LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
         Student stu = new Student(student);
         stu.setPassword(HashUtils.getBC(student.getPassword()));
@@ -108,5 +125,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public boolean haveSno(String sno) {
                 return studentMapper.haveSno(sno);
+    }
+
+    @Override
+    public Student_vo findBySno_vo(String sno) {
+        return studentMapper.findBySno_vo(sno);
     }
 }

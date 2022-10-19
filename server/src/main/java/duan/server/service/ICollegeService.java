@@ -17,4 +17,6 @@ public interface ICollegeService extends IService<College> {
     Result getCollege(Integer collegeid) throws Exception;
 
     Result getCollegeList();
+
+    Result createCollege(String college_name);
 }

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="duan.server.mapper.TeacherMapper">
     <insert id="insertTeacher">
-        INSERT INTO teacher (tno,password, tname,tsex,college)
-        VALUES (#{teacher.tno},#{teacher.password}, #{teacher.tname}, #{teacher.tsex}, #{teacher.college})
+        INSERT INTO teacher (tno,password, tname,tsex,collegeid)
+        VALUES (#{teacher.tno},#{teacher.password}, #{teacher.tname}, #{teacher.tsex}, #{teacher.collegeid})
     </insert>
     <update id="updateByTno">
         UPDATE teacher
@@ -39,20 +39,16 @@
     <select id="findAll" resultType="duan.server.entity.Teacher">
         SELECT * FROM teacher
     </select>
-    <select id="findBySearch" resultType="duan.server.entity.Teacher">
-        SELECT * FROM teacher
-        <where>
-            <if test="teacher.tno != null">
-                tno = #{teacher.tno}
-            </if>
-            <if test="teacher.tname != null">
-                <if test="fuzzy == 0">
-                    AND tname = #{teacher.tname}
-                </if>
-                <if test="fuzzy == 1">
-                    AND tname LIKE CONCAT('%', #{teacher.tname}, '%')
-                </if>
-            </if>
-        </where>
+    <select id="findBySearch" resultType="duan.server.entity.Teacher_vo">
+        SELECT tno,tname,tsex,collegename
+         FROM teacher,college
+            WHERE teacher.tname =#{tea.tname}
+             AND teacher.collegeid=college.collegeid
+    </select>
+    <select id="findBySearch_mohu" resultType="duan.server.entity.Teacher_vo">
+        SELECT tno,tname,tsex,collegename
+         FROM teacher,college
+            WHERE teacher.tname LIKE CONCAT('%',#{tea.tname},'%')
+             AND teacher.collegeid=college.collegeid
     </select>
 </mapper>

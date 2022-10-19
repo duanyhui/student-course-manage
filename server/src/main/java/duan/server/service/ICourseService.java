@@ -22,4 +22,6 @@ public interface ICourseService extends IService<Course> {
     public boolean updateCourse(Course course);
     public List<Course> findBySearch(SCT sct, Integer fuzzyInt);
     public Course findByCno(String cno);
+
+    List<Course> getCourseList();
 }

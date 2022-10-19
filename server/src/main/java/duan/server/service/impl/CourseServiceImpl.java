@@ -52,11 +52,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public List<Course> findBySearch(SCT sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
-        return courseMapper.findBySearch(sct,fuzzyInt);
+        if (fuzzyInt==1){
+            return courseMapper.findBySearch_mohu(sct);
+        }
+        return courseMapper.findBySearch(sct);
     }
 
     @Override
     public Course findByCno(String cno) {
         return courseMapper.findByCno(cno);
+    }
+
+    @Override
+    public List<Course> getCourseList() {
+
+        return courseMapper.selectList(null);
     }
 }

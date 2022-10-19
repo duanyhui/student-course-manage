@@ -2,13 +2,12 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
+import duan.server.entity.PlanIndex;
 import duan.server.mapper.MajorMapper;
-import duan.server.service.impl.ClassTimeServiceImpl;
-import duan.server.service.impl.CollegeServiceImpl;
-import duan.server.service.impl.CtServiceImpl;
-import duan.server.service.impl.MajorServiceImpl;
+import duan.server.service.impl.*;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +35,36 @@ public class utils {
     @Autowired
     private CtServiceImpl ctService;
 
-    @GetMapping("/get_college/{collegeid}")
-    public Result getCollege (@PathVariable("collegeid") Integer collegeid) throws Exception {
+    @PostMapping("/create_college")
+    public Result createCollege(@RequestParam("collegename") String collegename){
+        log.info("正在创建"+collegename+"学院");
+        return collegeService.createCollege(collegename);
+    }
+
+    /**
+     * 创建专业并返回专业id
+     * @param majorname
+     * @param collegeid
+     * @return 专业id
+     */
+    @Autowired
+    private PlanIndexServiceImpl planIndexService;
+    @PostMapping("/create_major")
+    public Result createMajor(@Param("majorname") String majorname, @Param("collegeid") Integer collegeid) throws Exception {
+        log.info("正在创建"+majorname+"专业");
+        Integer majorid = majorService.createMajor(majorname, collegeid);
+        PlanIndex planIndex = new PlanIndex();
+        planIndex.setMajorid(majorid);
+        planIndex.setCollegeid(collegeid);
+        for (int i = 1; i <= 8; i++) {
+            planIndex.setTermid(i);
+            planIndexService.createPlanIndex(planIndex);
+        }
+        return Result.succ(majorid);
+    }
+
+    @GetMapping("/get_college_name")
+    public Result getCollege ( Integer collegeid) throws Exception {
         log.info("正在查询学院id为"+collegeid+"的信息");
         return collegeService.getCollege(collegeid);
     }
@@ -53,6 +80,7 @@ public class utils {
 //        log.info("学院id"+collegeid+"正在获取专业列表");
 //        return majorService.getMajor(collegeid);
 //    }
+
     @GetMapping("/get_major")
     public Result getMajor( Integer collegeid, Integer majorid) throws Exception{
         log.info("学院id"+collegeid+"正在获取专业列表");

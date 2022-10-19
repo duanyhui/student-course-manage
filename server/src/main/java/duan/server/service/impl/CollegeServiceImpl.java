@@ -43,4 +43,33 @@ public class CollegeServiceImpl extends ServiceImpl<CollegeMapper, College> impl
         List<College> collegeList = collegeMapper.selectList(null);
         return Result.succ(collegeList);
     }
+
+    @Override
+    public Result createCollege(String college_name) {
+        College college = new College();
+        college.setCollegename(college_name);
+
+        try {
+            if(collegeMapper.insert(college) == 1){
+                return Result.succ(getCollegeId(college_name));
+            }
+            return Result.fail("创建失败");
+        }
+        catch (Exception e){
+            throw new RuntimeException("创建学院失败,学院名重复");
+        }
+
+
+    }
+
+    private Integer getCollegeId(String college_name) {
+        LambdaQueryWrapper<College> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(College::getCollegename,college_name);
+        College college = collegeMapper.selectOne(queryWrapper);
+        if (college == null){
+            throw new RuntimeException("学院不存在");
+        }
+        return college.getCollegeid();
+
+    }
 }

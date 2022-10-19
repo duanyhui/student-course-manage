@@ -105,6 +105,17 @@ public class CourseController {
 
     }
 
+    @GetMapping("/getCourseList")
+    public Result getCourseList(){
+        try {
+            return Result.succ(courseService.getCourseList());
+        }
+        catch (DataAccessException e){
+            return Result.fail("查询失败");
+        }
+
+    }
+
 
 
 }

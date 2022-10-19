@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -47,8 +46,10 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 
 
-    List<Course> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+    List<Course> findBySearch(@Param("sct") SCT sct);
 
     Course findByCno(@Param("cno") String cno);
+
+    List<Course> findBySearch_mohu(@Param("sct")SCT sct);
 }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Student;
 import duan.server.entity.Teacher;
+import duan.server.entity.Teacher_vo;
 import duan.server.mapper.TeacherMapper;
 import duan.server.service.ITeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -85,13 +86,16 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     /**
      * 条件查询老师信息，fuzzy为模糊查询标志位,为0时精确查询，为1时模糊查询
      */
-    public List<Teacher> findBySearch(String tno, String tname, Integer fuzzy) {
+    public List<Teacher_vo> findBySearch(String tno, String tname, Integer fuzzy) {
         Teacher teacher = new Teacher();
         teacher.setTno(tno);
         teacher.setTname(tname);
         fuzzy = (fuzzy == 1) ? 1 : 0;
 
         System.out.println("模糊查询标志位：" + fuzzy);
-        return teacherMapper.findBySearch(teacher, fuzzy);
+        if (fuzzy == 1) {
+            return teacherMapper.findBySearch_mohu(teacher);
+        }
+        return teacherMapper.findBySearch(teacher);
     }
 }
