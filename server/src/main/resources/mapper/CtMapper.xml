@@ -12,18 +12,18 @@
         DELETE FROM ct
         WHERE cno = #{ct.cno} AND tno = #{ct.tno} AND term = #{ct.term}
     </delete>
-    <select id="getByTno" resultType="duan.server.entity.SCT">
+    <select id="getByTno" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         WHERE ct.tno = #{tno}
           AND ct.cno = course.cno
           AND ct.tno = teacher.tno
     </select>
-    <select id="getAll" resultType="duan.server.entity.SCT">
+    <select id="getAll" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         WHERE ct.cno = course.cno
           AND ct.tno = teacher.tno
     </select>
-    <select id="findBySearch" resultType="duan.server.entity.SCT">
+    <select id="findBySearch" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         <where>
 
@@ -53,7 +53,7 @@
         </if>
         </where>
     </select>
-    <select id="findByTno" resultType="duan.server.entity.SCT">
+    <select id="findByTno" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         <where>
             AND ct.tno = #{tno}
@@ -61,7 +61,7 @@
             AND ct.tno = teacher.tno
         </where>
     </select>
-    <select id="findByTerm" resultType="duan.server.entity.SCT">
+    <select id="findByTerm" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         <where>
             AND ct.term = #{term}
@@ -69,7 +69,7 @@
             AND ct.tno = teacher.tno
         </where>
     </select>
-    <select id="findByStudent" resultType="duan.server.entity.SCT">
+    <select id="findByStudent" resultType="duan.server.entity.SCT_old">
         SELECT * FROM ct,course,teacher
         <where>
             <if test="fuzzyInt == 1">

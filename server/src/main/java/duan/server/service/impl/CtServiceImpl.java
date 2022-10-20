@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import duan.server.entity.Ct_vo;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.mapper.CtMapper;
 import duan.server.service.ICtService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,34 +45,34 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     }
 
     @Override
-    public List<SCT> getByTno(String tno) {
+    public List<SCT_old> getByTno(String tno) {
         return ctMapper.getByTno(tno);
     }
 
     @Override
-    public List<SCT> getAll() {
+    public List<SCT_old> getAll() {
         return ctMapper.getAll();
     }
 
     @Override
-    public List<SCT> findBySearch(SCT sct, Integer fuzzyInt) {
+    public List<SCT_old> findBySearch(SCT_old sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         System.out.println("模糊查询标志位：" + fuzzyInt);
         return ctMapper.findBySearch(sct, fuzzyInt);
     }
 
     @Override
-    public List<SCT> findByTno(String tno) {
+    public List<SCT_old> findByTno(String tno) {
         return ctMapper.findByTno(tno);
     }
 
     @Override
-    public List<SCT> findByTerm(String term) {
+    public List<SCT_old> findByTerm(String term) {
         return ctMapper.findByTerm(term);
     }
 
     @Override
-    public List<SCT> findByStudent(SCT sct, Integer fuzzyInt) {
+    public List<SCT_old> findByStudent(SCT_old sct, Integer fuzzyInt) {
         return ctMapper.findByStudent(sct,fuzzyInt);
     }
 

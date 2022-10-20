@@ -1,6 +1,6 @@
 package duan.server.service.impl;
 
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.entity.Sc;
 import duan.server.mapper.ScMapper;
 import duan.server.service.IScService;
@@ -25,7 +25,7 @@ public class ScServiceImpl extends ServiceImpl<ScMapper, Sc> implements IScServi
     private ScMapper scMapper;
 
     @Override
-    public boolean add(SCT sct) {
+    public boolean add(SCT_old sct) {
         return scMapper.add(sct);
     }
 
@@ -40,7 +40,7 @@ public class ScServiceImpl extends ServiceImpl<ScMapper, Sc> implements IScServi
     }
 
     @Override
-    public List<SCT> findBySearch(SCT sct, Integer fuzzyInt) {
+    public List<SCT_old> findBySearch(SCT_old sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         System.out.println("模糊查询标志位：" + fuzzyInt);
         return scMapper.findBySearch(sct, fuzzyInt);

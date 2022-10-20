@@ -1,7 +1,7 @@
 package duan.server.service.impl;
 
 import duan.server.entity.Course;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.mapper.CourseMapper;
 import duan.server.service.ICourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -50,7 +49,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 //    }
 
     @Override
-    public List<Course> findBySearch(SCT sct, Integer fuzzyInt) {
+    public List<Course> findBySearch(SCT_old sct, Integer fuzzyInt) {
         fuzzyInt = (fuzzyInt == 1) ? 1 : 0;
         if (fuzzyInt==1){
             return courseMapper.findBySearch_mohu(sct);

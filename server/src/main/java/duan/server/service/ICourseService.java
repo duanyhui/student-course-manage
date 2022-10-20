@@ -2,7 +2,7 @@ package duan.server.service;
 
 import duan.server.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface ICourseService extends IService<Course> {
     public boolean insertCourse(Course course);
     public boolean delCourseByCno(String cno);
     public boolean updateCourse(Course course);
-    public List<Course> findBySearch(SCT sct, Integer fuzzyInt);
+    public List<Course> findBySearch(SCT_old sct, Integer fuzzyInt);
     public Course findByCno(String cno);
 
     List<Course> getCourseList();

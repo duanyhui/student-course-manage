@@ -2,7 +2,7 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.entity.Sc;
 import duan.server.service.impl.ScServiceImpl;
 import duan.server.service.impl.StudentServiceImpl;
@@ -32,7 +32,7 @@ public class ScController {
 
     //todo:学生选课学期id变String传给前端
     @PostMapping("/add")
-    public Result add(@RequestBody SCT sct) {
+    public Result add(@RequestBody SCT_old sct) {
         try {
             Integer ttermid =studentService.findBySno(sct.getSno()).getTermid();
             Integer s=sct.getTermid();
@@ -111,7 +111,7 @@ public class ScController {
      *
      */
     @PostMapping("/findBySearch")
-    public Result findBySearch(@RequestBody SCT sct) {
+    public Result findBySearch(@RequestBody SCT_old sct) {
         try {
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
 

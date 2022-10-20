@@ -2,7 +2,7 @@ package duan.server.mapper;
 
 import duan.server.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,10 +46,10 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 
 
-    List<Course> findBySearch(@Param("sct") SCT sct);
+    List<Course> findBySearch(@Param("sct") SCT_old sct);
 
     Course findByCno(@Param("cno") String cno);
 
-    List<Course> findBySearch_mohu(@Param("sct")SCT sct);
+    List<Course> findBySearch_mohu(@Param("sct") SCT_old sct);
 }
 

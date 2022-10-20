@@ -3,7 +3,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.service.impl.CtServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -74,10 +74,10 @@ public class CtController {
 
     /**
      * 模糊查询开课信息
-     * @return List<SCT>
+     * @return List<SCT_old>
      */
     @PostMapping("/findBySearch")
-    public Result findBySearch(@RequestBody SCT sct) {
+    public Result findBySearch(@RequestBody SCT_old sct) {
         try {
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
             /**
@@ -93,7 +93,7 @@ public class CtController {
 
     /**
      * 根据老师tno查询开课信息
-     * @return List<SCT>
+     * @return List<SCT_old>
      */
     @GetMapping("/findByTno/{tno}")
     public Result findByTno(@PathVariable String tno) {
@@ -106,10 +106,10 @@ public class CtController {
 
     /**
      * 根据学生的term查询开课信息
-     * @return List<SCT>
+     * @return List<SCT_old>
      */
     @PostMapping("/findByStudent")
-    public Result findByStudent(@RequestBody SCT sct) {
+    public Result findByStudent(@RequestBody SCT_old sct) {
         try {
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
             return Result.succ(ctService.findByStudent(sct,fuzzyInt));

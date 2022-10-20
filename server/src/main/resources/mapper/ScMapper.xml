@@ -17,7 +17,7 @@
             DELETE FROM sc
             WHERE sno=#{sc.sno} AND ctid=#{sc.ctid}
     </delete>
-    <select id="findBySearch" resultType="duan.server.entity.SCT">
+    <select id="findBySearch" resultType="duan.server.entity.SCT_old">
             SELECT * FROM sc,course,student,teacher,ct
             <where>
                 <if test="fuzzyInt == 1">

@@ -14,7 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SCT {
+public class SCT_old {
 
     private Integer cid;
 

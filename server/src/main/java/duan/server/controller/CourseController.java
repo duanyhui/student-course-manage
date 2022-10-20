@@ -3,7 +3,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Course;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.service.impl.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -94,7 +94,7 @@ public class CourseController {
      * 模糊查询课程
      */
     @PostMapping("/findBySearch")
-    public Result findBySearch(@RequestBody SCT sct){
+    public Result findBySearch(@RequestBody SCT_old sct){
         try{
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
             return Result.succ(courseService.findBySearch(sct, fuzzyInt));

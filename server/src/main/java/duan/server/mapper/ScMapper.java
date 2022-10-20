@@ -1,6 +1,6 @@
 package duan.server.mapper;
 
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import duan.server.entity.Sc;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,11 +19,11 @@ import java.util.List;
 @Mapper
 public interface ScMapper extends BaseMapper<Sc> {
 
-    boolean add(@Param("sct") SCT sct);
+    boolean add(@Param("sct") SCT_old sct);
 
     boolean delete(@Param("sc") Sc sc);
 
     boolean updateGrade(@Param("sc") Sc sc);
 
-    List<SCT> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+    List<SCT_old> findBySearch(@Param("sct") SCT_old sct, @Param("fuzzyInt") Integer fuzzyInt);
 }

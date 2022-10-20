@@ -3,7 +3,7 @@ package duan.server.mapper;
 import duan.server.entity.Ct;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import duan.server.entity.Ct_vo;
-import duan.server.entity.SCT;
+import duan.server.entity.SCT_old;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,19 +24,19 @@ public interface CtMapper extends BaseMapper<Ct> {
 
 
 
-    List<SCT> getByTno(@Param("tno") String tno);
+    List<SCT_old> getByTno(@Param("tno") String tno);
 
-    List<SCT> getAll();
+    List<SCT_old> getAll();
 
     boolean deleteCt(@Param("ct") Ct ct);
 
-    List<SCT> findBySearch(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+    List<SCT_old> findBySearch(@Param("sct") SCT_old sct, @Param("fuzzyInt") Integer fuzzyInt);
 
-    List<SCT> findByTno(@Param("tno") String tno);
+    List<SCT_old> findByTno(@Param("tno") String tno);
 
-    List<SCT> findByTerm(@Param("term") String term);
+    List<SCT_old> findByTerm(@Param("term") String term);
 
-    List<SCT> findByStudent(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+    List<SCT_old> findByStudent(@Param("sct") SCT_old sct, @Param("fuzzyInt") Integer fuzzyInt);
 
     List<Ct_vo> getClassTeacherListByTno(String tno);
 }
