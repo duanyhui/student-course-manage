@@ -2,6 +2,7 @@ package duan.server.mapper;
 
 import duan.server.entity.Ct;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.SCT;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +37,6 @@ public interface CtMapper extends BaseMapper<Ct> {
     List<SCT> findByTerm(@Param("term") String term);
 
     List<SCT> findByStudent(@Param("sct") SCT sct, @Param("fuzzyInt") Integer fuzzyInt);
+
+    List<Ct_vo> getClassTeacherListByTno(String tno);
 }

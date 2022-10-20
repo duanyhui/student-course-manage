@@ -3,6 +3,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.Teacher;
 import duan.server.entity.Teacher_vo;
 import duan.server.service.impl.CtServiceImpl;
@@ -162,9 +163,15 @@ public class TeacherController {
         return ctService.openCourse(ct);
     }
 
-    @GetMapping("/get_classteacherlist/{tno}")
-    public Result getClassTeacherList(@PathVariable("tno") String tno) throws Exception{
-        return ctService.getClassTeacherListByTno(tno);
+//    @GetMapping("/get_classteacherlist/{tno}")
+//    public Result getClassTeacherList(@PathVariable("tno") String tno) throws Exception{
+//        return ctService.getClassTeacherListByTno(tno);
+//    }
+
+    @GetMapping("/get_classlist_by_tno")
+    public Result getClassListByTno(String tno) throws Exception {
+        List<Ct_vo> classTeacherList = ctService.getClassTeacherListByTno(tno);
+        return Result.succ(classTeacherList);
     }
 
 }

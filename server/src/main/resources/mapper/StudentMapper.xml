@@ -93,7 +93,7 @@
           AND major.collegeid = college.collegeid
     </select>
     <select id="get_able_course" resultType="duan.server.entity.Ct_vo">
-        SELECT course.cno,course.cname,teacher.tno,teacher.tname,class_time.classtime,ct.ctid,ct.capacity
+        SELECT *
         FROM student,course,plan_table,ct,class_time,teacher
         WHERE
         student.sno = #{sno}

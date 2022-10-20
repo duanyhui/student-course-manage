@@ -3,6 +3,7 @@ package duan.server.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.SCT;
 import duan.server.mapper.CtMapper;
 import duan.server.service.ICtService;
@@ -100,12 +101,9 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     }
 
     @Override
-    public Result getClassTeacherListByTno(String tno) {
-        LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
-        queryWrapper.eq(Ct::getTno,tno);
-        if (ctMapper.selectList(queryWrapper).size()==0){
-            return Result.fail("该教师未开课");
-        }
-        return Result.succ(ctMapper.selectList(queryWrapper));
+    public List<Ct_vo> getClassTeacherListByTno(String tno) {
+        return ctMapper.getClassTeacherListByTno(tno);
     }
+
+
 }

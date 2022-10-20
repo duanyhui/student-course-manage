@@ -38,7 +38,7 @@ public class Ct implements Serializable {
       @ApiModelProperty("开课容量")
       private Integer capacity;
 
-      private Integer capacity_able;
+      private Integer capacityable;
 
 
 }

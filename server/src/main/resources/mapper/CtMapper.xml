@@ -93,5 +93,12 @@
 
         </where>
     </select>
+    <select id="getClassTeacherListByTno" resultType="duan.server.entity.Ct_vo">
+        SELECT * FROM teacher,course,ct,class_time
+        WHERE teacher.tno = #{tno}
+        AND teacher.tno = ct.tno
+        AND ct.cno = course.cno
+        AND ct.classtimeid = class_time.classtimeid
+    </select>
 
 </mapper>

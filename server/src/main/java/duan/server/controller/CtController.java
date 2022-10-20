@@ -30,7 +30,7 @@ public class CtController {
     public Result add(@RequestBody Ct ct) {
         try {
             //初始化课程容量
-            ct.setCapacity_able(ct.getCapacity());
+            ct.setCapacityable(ct.getCapacity());
             if(ctService.add(ct)==1){
                 return Result.succ(200,"添加开课成功",null);
             }

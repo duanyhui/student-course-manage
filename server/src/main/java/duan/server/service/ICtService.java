@@ -3,6 +3,7 @@ package duan.server.service;
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import com.baomidou.mybatisplus.extension.service.IService;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.SCT;
 
 import java.util.List;
@@ -29,5 +30,7 @@ public interface ICtService extends IService<Ct> {
 
     Result getClassTeacherList();
 
-    Result getClassTeacherListByTno(String tno);
+    List<Ct_vo> getClassTeacherListByTno(String tno);
+
+
 }

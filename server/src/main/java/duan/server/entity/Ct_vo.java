@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ct_vo {
+
+public class Ct_vo implements Serializable {
     private Integer ctid;
     private String cno;
     private String tno;
@@ -19,11 +22,13 @@ public class Ct_vo {
 
     private String cname;
 
-    private String tname;
 
+    private String tname;
     private Integer ccredit;
 
     private Integer capacity;
+    private Integer capacityable;
+    private String type;
 
-    private Integer capacity_able;
+
 }
