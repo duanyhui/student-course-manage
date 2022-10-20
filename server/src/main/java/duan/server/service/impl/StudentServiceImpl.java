@@ -1,6 +1,7 @@
 package duan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.Student;
 import duan.server.entity.Student_vo;
 import duan.server.mapper.StudentMapper;
@@ -130,5 +131,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public Student_vo findBySno_vo(String sno) {
         return studentMapper.findBySno_vo(sno);
+    }
+
+    @Override
+    public List<Ct_vo> get_able_course(String sno) {
+        return studentMapper.get_able_course(sno);
     }
 }

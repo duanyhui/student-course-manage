@@ -2,6 +2,7 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.Student;
 import duan.server.entity.Student_vo;
 import duan.server.service.impl.LoginServiceImpl;
@@ -209,6 +210,20 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/get_able_course")
+     public Result get_able_course(@RequestParam("sno") String sno) {
+        log.info("获取学生可选课程,返回List<ct>");
+        try {
+            List<Ct_vo> list = studentService.get_able_course(sno);
+            return Result.succ(list);
+        }
+        catch (Exception e) {
+            return Result.fail("获取学生可选课程失败");
+        }
+
 
 }
+
+}
+
 
