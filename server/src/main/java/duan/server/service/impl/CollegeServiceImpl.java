@@ -35,7 +35,7 @@ public class CollegeServiceImpl extends ServiceImpl<CollegeMapper, College> impl
         if(college == null){
             throw new Exception("学院不存在");
         }
-        return Result.succ(college);
+        return Result.succ(college.getCollegename());
     }
 
     @Override

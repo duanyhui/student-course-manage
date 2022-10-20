@@ -30,7 +30,8 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     public int add(Ct ct)  {
         LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
         queryWrapper.eq(Ct::getTno,ct.getTno());
-        return ctMapper.insert(ct);
+        return ctMapper.add(ct);
+
     }
 
     @Override
@@ -38,7 +39,6 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
         LambdaQueryWrapper<Ct> queryWrapper = new LambdaQueryWrapper<Ct>();
         queryWrapper.eq(Ct::getTno,ct.getTno());
         queryWrapper.eq(Ct::getCno,ct.getCno());
-        queryWrapper.eq(Ct::getTermid,ct.getTermid());
         return ctMapper.delete(queryWrapper);
 
     }

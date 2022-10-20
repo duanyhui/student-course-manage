@@ -29,17 +29,15 @@ public class CtController {
     @PostMapping("/add")
     public Result add(@RequestBody Ct ct) {
         try {
-            if(ct.getTermid()!=null) {
-                //todo 加一个上课时间
-                if (ctService.add(ct)==1) {
-                    return Result.succ("添加成功");
-                } else {
-                    return Result.fail("添加失败");
-                }
+            //初始化课程容量
+            ct.setCapacity_able(ct.getCapacity());
+            if(ctService.add(ct)==1){
+                return Result.succ(200,"添加开课成功",null);
             }
             else {
-                return Result.fail("添加失败,学期不能为空");
+                return Result.succ(200,"添加开课失败",null);
             }
+
         }
         catch (DataAccessException e) {
             return Result.fail("添加失败,请检查数据是否合法，或者是否已经存在");

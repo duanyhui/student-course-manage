@@ -3,8 +3,9 @@
 <mapper namespace="duan.server.mapper.CtMapper">
 
     <insert id="add">
-        INSERT INTO ct(cno, tno, term, capacity)
-        VALUES(#{ct.cno}, #{ct.tno}, #{ct.term}, #{ct.capacity})
+        INSERT INTO
+            ct(cno, tno, classtimeid, capacity,capacity_able)
+        VALUES(#{ct.cno}, #{ct.tno}, #{ct.classtimeid}, #{ct.capacity}, #{ct.capacity_able})
     </insert>
 
     <delete id="deleteCt">

@@ -19,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface CtMapper extends BaseMapper<Ct> {
 
-    boolean add(@Param("ct") Ct ct);
+    int add(@Param("ct") Ct ct);
 
 
 

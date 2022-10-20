@@ -21,5 +21,9 @@ public class Ct_vo {
 
     private String tname;
 
+    private Integer ccredit;
+
     private Integer capacity;
+
+    private Integer capacity_able;
 }
