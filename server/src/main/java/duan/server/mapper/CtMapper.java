@@ -39,4 +39,6 @@ public interface CtMapper extends BaseMapper<Ct> {
     List<SCT_old> findByStudent(@Param("sct") SCT_old sct, @Param("fuzzyInt") Integer fuzzyInt);
 
     List<Ct_vo> getClassTeacherListByTno(String tno);
+
+    void update_capacity(Integer capacity, Integer ctid);
 }

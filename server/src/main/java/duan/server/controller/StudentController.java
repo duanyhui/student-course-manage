@@ -2,6 +2,7 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
+import duan.server.entity.Ct;
 import duan.server.entity.Ct_vo;
 import duan.server.entity.Student;
 import duan.server.entity.Student_vo;
@@ -220,9 +221,19 @@ public class StudentController {
         catch (Exception e) {
             return Result.fail("获取学生可选课程失败");
         }
+    }
 
-
-}
+    /**
+     * 学生选择老师开的课，一门课一个学生只能同时选一次，选课逻辑为传入sno，ctid，然后先判断这个ctid对应的课程（cno）学生有没有选过
+     * @param ctid
+     * @param sno
+     * @return
+     */
+    @PostMapping("/select_course")
+    public Result select_course(Integer ctid, String sno) {
+        log.info("学生选课ctid:"+ctid+" sno:"+sno);
+        return studentService.select_course(ctid, sno);
+    }
 
 }
 

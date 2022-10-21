@@ -1,9 +1,10 @@
 package duan.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import duan.server.entity.Ct_vo;
-import duan.server.entity.Student;
-import duan.server.entity.Student_vo;
+import duan.server.commom.lang.Result;
+import duan.server.entity.*;
+import duan.server.mapper.CtMapper;
+import duan.server.mapper.SctMapper;
 import duan.server.mapper.StudentMapper;
 import duan.server.service.IPlanIndexService;
 import duan.server.service.IStudentService;
@@ -136,5 +137,29 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public List<Ct_vo> get_able_course(String sno) {
         return studentMapper.get_able_course(sno);
+    }
+
+    @Autowired
+    private SctMapper sctMapper;
+    @Autowired
+    private CtMapper ctMapper;
+    @Override
+    public Result select_course(Integer ctid, String sno) {
+        List<Sct> scts = studentMapper.have_select_course(ctid, sno);
+        if(studentMapper.have_select_course(ctid,sno).size()!= 0){
+            return Result.fail("已选过该课程");
+        }
+        else {
+            LambdaQueryWrapper<Ct> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Ct::getCtid,ctid);
+            Integer capacity = ctMapper.selectOne(wrapper).getCapacityable();
+            if (capacity == 0){
+                return Result.fail("该课程已满");
+            }
+            capacity--;
+            ctMapper.update_capacity(capacity,ctid);
+            sctMapper.insert(ctid,sno);
+            return Result.succ("选课成功");
+        }
     }
 }

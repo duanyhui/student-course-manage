@@ -104,5 +104,21 @@
         AND ct.tno = teacher.tno
 
     </select>
+    <select id="have_select_course" resultType="duan.server.entity.Sct">
+        SELECT *
+        FROM ct,sct
+        WHERE sct.sno = #{sno}
+        AND sct.ctid = ct.ctid
+        AND ct.cno =(SELECT cno
+                     FROM ct
+                     WHERE ct.ctid = #{ctid})
+
+
+
+
+
+
+
+    </select>
 
 </mapper>

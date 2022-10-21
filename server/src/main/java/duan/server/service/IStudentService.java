@@ -1,5 +1,6 @@
 package duan.server.service;
 
+import duan.server.commom.lang.Result;
 import duan.server.entity.Ct_vo;
 import duan.server.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -30,4 +31,6 @@ public interface IStudentService extends IService<Student> {
     Student_vo findBySno_vo(String sno);
 
     List<Ct_vo> get_able_course(String sno);
+
+    Result select_course(Integer ctid, String sno);
 }

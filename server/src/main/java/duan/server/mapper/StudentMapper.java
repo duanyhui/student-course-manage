@@ -1,6 +1,7 @@
 package duan.server.mapper;
 
 import duan.server.entity.Ct_vo;
+import duan.server.entity.Sct;
 import duan.server.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import duan.server.entity.Student_vo;
@@ -42,4 +43,8 @@ public interface StudentMapper extends BaseMapper<Student> {
     Student_vo findBySno_vo(String sno);
 
     List<Ct_vo> get_able_course(String sno);
+
+    List<Sct> have_select_course(Integer ctid, String sno);
+
+//    void select_course(Integer ctid, String sno);
 }

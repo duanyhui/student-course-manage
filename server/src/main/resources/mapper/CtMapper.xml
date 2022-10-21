@@ -7,6 +7,12 @@
             ct(cno, tno, classtimeid, capacity,capacity_able)
         VALUES(#{ct.cno}, #{ct.tno}, #{ct.classtimeid}, #{ct.capacity}, #{ct.capacity_able})
     </insert>
+    <update id="update_capacity">
+        UPDATE ct
+        SET
+            capacityable = #{capacity}
+        WHERE ctid = #{ctid};
+    </update>
 
     <delete id="deleteCt">
         DELETE FROM ct
