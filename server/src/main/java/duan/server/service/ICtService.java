@@ -5,6 +5,7 @@ import duan.server.entity.Ct;
 import com.baomidou.mybatisplus.extension.service.IService;
 import duan.server.entity.Ct_vo;
 import duan.server.entity.SCT_old;
+import duan.server.entity.Sct;
 
 import java.util.List;
 
@@ -33,4 +34,7 @@ public interface ICtService extends IService<Ct> {
     List<Ct_vo> getClassTeacherListByTno(String tno);
 
 
+    List<Ct_vo> getStudentClassList(String tno, String cname, String sname);
+
+    Result updateScore(Sct sct);
 }

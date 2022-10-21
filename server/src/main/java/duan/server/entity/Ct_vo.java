@@ -16,12 +16,13 @@ public class Ct_vo implements Serializable {
     private Integer ctid;
     private String cno;
     private String tno;
+    private String sno;
 
     // 上课时间
     private String classtime;
 
     private String cname;
-
+    private String sname;
 
     private String tname;
     private Integer ccredit;

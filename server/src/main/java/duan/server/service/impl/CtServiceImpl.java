@@ -5,7 +5,9 @@ import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
 import duan.server.entity.Ct_vo;
 import duan.server.entity.SCT_old;
+import duan.server.entity.Sct;
 import duan.server.mapper.CtMapper;
+import duan.server.mapper.SctMapper;
 import duan.server.service.ICtService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +105,33 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
     @Override
     public List<Ct_vo> getClassTeacherListByTno(String tno) {
         return ctMapper.getClassTeacherListByTno(tno);
+    }
+
+    @Override
+    public List<Ct_vo> getStudentClassList(String tno, String cname, String sname) {
+        if (cname == null) cname = "";
+        if (sname == null) sname = "";
+        return ctMapper.getStudentClassList(tno,cname,sname);
+    }
+
+    @Autowired
+    private SctMapper sctMapper;
+    @Override
+    public Result updateScore(Sct sct) {
+        try {
+            LambdaQueryWrapper<Sct> queryWrapper = new LambdaQueryWrapper<Sct>();
+            queryWrapper.eq(Sct::getSno,sct.getSno());
+            queryWrapper.eq(Sct::getCtid,sct.getCtid());
+            if (sctMapper.update(sct,queryWrapper)==1){
+                return Result.succ("修改成功");
+            }
+            else {
+                return Result.fail("修改失败");
+            }
+        }
+        catch (Exception e){
+            throw new RuntimeException("修改失败");
+        }
     }
 
 

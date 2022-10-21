@@ -2,10 +2,7 @@ package duan.server.controller;
 
 
 import duan.server.commom.lang.Result;
-import duan.server.entity.Ct;
-import duan.server.entity.Ct_vo;
-import duan.server.entity.Teacher;
-import duan.server.entity.Teacher_vo;
+import duan.server.entity.*;
 import duan.server.service.impl.CtServiceImpl;
 import duan.server.service.impl.LoginServiceImpl;
 import duan.server.service.impl.TeacherServiceImpl;
@@ -172,6 +169,20 @@ public class TeacherController {
     public Result getClassListByTno(String tno) throws Exception {
         List<Ct_vo> classTeacherList = ctService.getClassTeacherListByTno(tno);
         return Result.succ(classTeacherList);
+    }
+
+    /**
+     * 老师tno必传 传课程名和学生名，返回学生选课列表
+     */
+    @GetMapping("/get_student_classlist")
+    public Result getStudentClassList(String tno, String cname, String sname) throws Exception {
+        List<Ct_vo> classTeacherList = ctService.getStudentClassList(tno, cname, sname);
+        return Result.succ(classTeacherList);
+    }
+
+    @PostMapping("/update_grade")
+    public Result updateScore(@RequestBody Sct sct) throws Exception {
+        return ctService.updateScore(sct);
     }
 
 }

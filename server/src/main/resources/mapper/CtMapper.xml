@@ -106,5 +106,16 @@
         AND ct.cno = course.cno
         AND ct.classtimeid = class_time.classtimeid
     </select>
+    <select id="getStudentClassList" resultType="duan.server.entity.Ct_vo">
+        SELECT * FROM student,course,ct,class_time,teacher,sct
+        WHERE teacher.tno = #{tno}
+        AND student.sname LIKE CONCAT('%', #{sname}, '%')
+        AND course.cname LIKE CONCAT('%', #{cname}, '%')
+        AND student.sno = sct.sno
+        AND ct.cno = course.cno
+        AND ct.classtimeid = class_time.classtimeid
+        AND ct.tno = teacher.tno
+        AND sct.ctid = ct.ctid
+    </select>
 
 </mapper>
