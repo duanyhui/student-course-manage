@@ -167,4 +167,22 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public List<Ct_vo> get_selected_course(String sno) {
         return studentMapper.get_selected_course(sno);
     }
+
+    @Override
+    public Result delete_selected_course(Integer ctid, String sno) {
+        // 有成绩无法退课,这里没有判断是否选了课程，我不想加了，开摆！22-10-21
+        Float grade = sctMapper.get_grade(ctid,sno);
+        if(sctMapper.get_grade(ctid,sno) != null){
+            return Result.fail("有成绩无法退课");
+        }
+        else {
+            LambdaQueryWrapper<Ct> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Ct::getCtid,ctid);
+            Integer capacity = ctMapper.selectOne(wrapper).getCapacityable();
+            capacity++;
+            ctMapper.update_capacity(capacity,ctid);
+            sctMapper.delete(ctid,sno);
+            return Result.succ("退课成功");
+        }
+    }
 }

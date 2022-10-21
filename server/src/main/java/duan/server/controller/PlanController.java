@@ -129,7 +129,7 @@ public class PlanController {
         return Result.succ(planIndex_vo);
     }
 
-    @GetMapping("/get_course_list_by_sno")
+    @GetMapping("/get_plan_list_by_sno")
     public Result getPlanTableBySno(@RequestParam("sno") String sno) throws Exception {
         log.info("正在获取学生的培养计划");
         log.info("sno为"+sno);

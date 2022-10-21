@@ -247,6 +247,12 @@ public class StudentController {
         }
     }
 
+    @PostMapping("/delete_selected_course")
+    public Result delete_selected_course(Integer ctid, String sno) {
+        log.info("学生退选课程ctid:"+ctid+" sno:"+sno);
+        return studentService.delete_selected_course(ctid, sno);
+    }
+
 }
 
 

@@ -16,4 +16,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SctMapper extends BaseMapper<Sct> {
 
     int insert(Integer ctid, String sno);
+
+    Float get_grade(Integer ctid, String sno);
+
+    void delete(Integer ctid, String sno);
 }

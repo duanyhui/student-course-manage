@@ -6,4 +6,11 @@
         INSERT INTO sct(ctid,sno)
         VALUES(#{ctid}, #{sno})
     </insert>
+    <delete id="delete">
+        DELETE FROM sct
+        WHERE sno = #{sno} AND ctid = #{ctid}
+    </delete>
+    <select id="get_grade" resultType="java.lang.Float">
+        SELECT grade FROM sct WHERE sno = #{sno} AND ctid = #{ctid}
+    </select>
 </mapper>
