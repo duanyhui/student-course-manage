@@ -33,4 +33,6 @@ public interface IStudentService extends IService<Student> {
     List<Ct_vo> get_able_course(String sno);
 
     Result select_course(Integer ctid, String sno);
+
+    List<Ct_vo> get_selected_course(String sno);
 }

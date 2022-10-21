@@ -120,5 +120,15 @@
 
 
     </select>
+    <select id="get_selected_course" resultType="duan.server.entity.Ct_vo">
+        SELECT *
+        FROM sct,course,class_time,teacher,ct
+        WHERE sct.sno = #{sno}
+        AND sct.ctid = ct.ctid
+        AND ct.cno = course.cno
+        AND ct.classtimeid = class_time.classtimeid
+        AND ct.tno = teacher.tno
+
+    </select>
 
 </mapper>

@@ -162,4 +162,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return Result.succ("选课成功");
         }
     }
+
+    @Override
+    public List<Ct_vo> get_selected_course(String sno) {
+        return studentMapper.get_selected_course(sno);
+    }
 }

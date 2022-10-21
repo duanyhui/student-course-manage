@@ -30,5 +30,7 @@ public class Ct_vo implements Serializable {
     private Integer capacityable;
     private String type;
 
+    private float grade;
+
 
 }

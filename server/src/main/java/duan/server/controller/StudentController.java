@@ -235,6 +235,18 @@ public class StudentController {
         return studentService.select_course(ctid, sno);
     }
 
+    @GetMapping("/get_selected_course")
+    public Result get_selected_course(@RequestParam("sno") String sno) {
+        log.info("获取学生已选课程,返回List<ct>");
+        try {
+            List<Ct_vo> list = studentService.get_selected_course(sno);
+            return Result.succ(list);
+        }
+        catch (Exception e) {
+            return Result.fail("获取学生已选课程失败");
+        }
+    }
+
 }
 
 
