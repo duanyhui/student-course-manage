@@ -30,5 +30,7 @@ public class Admin implements Serializable {
 
     private String role;
 
+    private Integer schoolyear;
+
 
 }
