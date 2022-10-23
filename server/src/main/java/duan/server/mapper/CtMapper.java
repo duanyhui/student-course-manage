@@ -43,4 +43,6 @@ public interface CtMapper extends BaseMapper<Ct> {
     void update_capacity(Integer capacity, Integer ctid);
 
     List<Ct_vo> getStudentClassList(String tno, String cname, String sname);
+
+    List<Ct_vo> getStudentClassList_Admin(String sname, String cname, String tname);
 }

@@ -4,8 +4,8 @@
 
     <insert id="add">
         INSERT INTO
-            ct(cno, tno, classtimeid, capacity,capacity_able)
-        VALUES(#{ct.cno}, #{ct.tno}, #{ct.classtimeid}, #{ct.capacity}, #{ct.capacity_able})
+            ct(cno, tno, classtimeid, capacity,capacityable)
+        VALUES(#{ct.cno}, #{ct.tno}, #{ct.classtimeid}, #{ct.capacity}, #{ct.capacityable})
     </insert>
     <update id="update_capacity">
         UPDATE ct
@@ -111,6 +111,18 @@
         WHERE teacher.tno = #{tno}
         AND student.sname LIKE CONCAT('%', #{sname}, '%')
         AND course.cname LIKE CONCAT('%', #{cname}, '%')
+        AND student.sno = sct.sno
+        AND ct.cno = course.cno
+        AND ct.classtimeid = class_time.classtimeid
+        AND ct.tno = teacher.tno
+        AND sct.ctid = ct.ctid
+    </select>
+    <select id="getStudentClassList_Admin" resultType="duan.server.entity.Ct_vo">
+        SELECT * FROM student,course,ct,class_time,teacher,sct
+
+        WHERE student.sname LIKE CONCAT('%', #{sname}, '%')
+        AND course.cname LIKE CONCAT('%', #{cname}, '%')
+        AND teacher.tname LIKE CONCAT('%', #{tname}, '%')
         AND student.sno = sct.sno
         AND ct.cno = course.cno
         AND ct.classtimeid = class_time.classtimeid

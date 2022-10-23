@@ -37,4 +37,6 @@ public interface ICtService extends IService<Ct> {
     List<Ct_vo> getStudentClassList(String tno, String cname, String sname);
 
     Result updateScore(Sct sct);
+
+    List<Ct_vo> getStudentClassList_Admin(String sname, String cname, String tname);
 }

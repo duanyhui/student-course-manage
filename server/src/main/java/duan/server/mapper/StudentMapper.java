@@ -48,5 +48,9 @@ public interface StudentMapper extends BaseMapper<Student> {
 
     List<Ct_vo> get_selected_course(String sno);
 
+    void updateTerm();
+
+    void updateTermBefore();
+
 //    void select_course(Integer ctid, String sno);
 }

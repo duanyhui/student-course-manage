@@ -37,4 +37,8 @@ public interface IStudentService extends IService<Student> {
     List<Ct_vo> get_selected_course(String sno);
 
     Result delete_selected_course(Integer ctid, String sno);
+
+    void updateTerm();
+
+    void updateTermBefore();
 }

@@ -33,6 +33,17 @@
         </set>
         WHERE sno = #{student.sno};
     </update>
+    <update id="updateTerm">
+        UPDATE student
+        SET
+            termid = termid + 1
+
+    </update>
+    <update id="updateTermBefore">
+        UPDATE student
+        SET
+            termid = termid - 1
+    </update>
     <delete id="deleteBySno">
         DELETE FROM student
         WHERE sno = #{sno};

@@ -107,12 +107,7 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
         return ctMapper.getClassTeacherListByTno(tno);
     }
 
-    @Override
-    public List<Ct_vo> getStudentClassList(String tno, String cname, String sname) {
-        if (cname == null) cname = "";
-        if (sname == null) sname = "";
-        return ctMapper.getStudentClassList(tno,cname,sname);
-    }
+
 
     @Autowired
     private SctMapper sctMapper;
@@ -132,6 +127,21 @@ public class CtServiceImpl extends ServiceImpl<CtMapper, Ct> implements ICtServi
         catch (Exception e){
             throw new RuntimeException("修改失败");
         }
+    }
+
+    @Override
+    public List<Ct_vo> getStudentClassList(String tno, String cname, String sname) {
+        if (cname == null) cname = "";
+        if (sname == null) sname = "";
+        return ctMapper.getStudentClassList(tno,cname,sname);
+    }
+
+    @Override
+    public List<Ct_vo> getStudentClassList_Admin(String sname, String cname, String tname) {
+        if (sname == null) sname = "";
+        if (cname == null) cname = "";
+        if (tname == null) tname = "";
+        return ctMapper.getStudentClassList_Admin(sname,cname,tname);
     }
 
 

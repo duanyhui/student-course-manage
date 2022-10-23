@@ -31,12 +31,17 @@ public class CtController {
         try {
             //初始化课程容量
             ct.setCapacityable(ct.getCapacity());
-            if(ctService.add(ct)==1){
+            try {
+                ctService.add(ct);
                 return Result.succ(200,"添加开课成功",null);
+
             }
-            else {
-                return Result.succ(200,"添加开课失败",null);
+            catch (Exception e) {
+                return Result.fail(400,"添加开课失败",null);
             }
+//            else {
+//                return Result.succ(200,"添加开课失败",null);
+//            }
 
         }
         catch (DataAccessException e) {

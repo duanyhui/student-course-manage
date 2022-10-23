@@ -2,6 +2,7 @@ package duan.server.controller;
 
 import duan.server.commom.lang.Result;
 import duan.server.entity.Ct;
+import duan.server.entity.Ct_vo;
 import duan.server.entity.PlanIndex;
 import duan.server.mapper.MajorMapper;
 import duan.server.service.impl.*;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -109,6 +112,38 @@ public class utils {
         return ctService.getClassTeacherList();
     }
 
+    @GetMapping("/get_student_classlist")
+    public Result getStudentClassList(String sname,String cname,String tname) throws Exception{
+        if (sname ==null) sname="";
+        if (cname ==null) cname="";
+        if (tname ==null) tname="";
+        List<Ct_vo> list = ctService.getStudentClassList_Admin(sname,cname,tname);
+        return Result.succ(list);
+
+    }
+    @Autowired
+    private StudentServiceImpl studentService;
+    @PostMapping("/update_term")
+    public Result updateTerm() throws Exception {
+        try {
+            studentService.updateTerm();
+            return Result.succ("操作成功");
+        } catch (Exception e) {
+            return Result.fail("操作失败");
+        }
+
+    }
+
+    @PostMapping("/update_term_before")
+    public Result updateTermBefore() throws Exception {
+        try {
+            studentService.updateTermBefore();
+            return Result.succ("操作成功");
+        } catch (Exception e) {
+            return Result.fail("操作失败");
+        }
+
+    }
 
 
 }

@@ -185,4 +185,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             return Result.succ("退课成功");
         }
     }
+
+    @Override
+    public void updateTerm() {
+        studentMapper.updateTerm();
+    }
+
+    @Override
+    public void updateTermBefore() {
+        studentMapper.updateTermBefore();
+    }
 }

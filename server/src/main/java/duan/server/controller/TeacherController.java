@@ -5,6 +5,7 @@ import duan.server.commom.lang.Result;
 import duan.server.entity.*;
 import duan.server.service.impl.CtServiceImpl;
 import duan.server.service.impl.LoginServiceImpl;
+import duan.server.service.impl.StudentServiceImpl;
 import duan.server.service.impl.TeacherServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,6 +185,11 @@ public class TeacherController {
     public Result updateScore(@RequestBody Sct sct) throws Exception {
         return ctService.updateScore(sct);
     }
+
+
+
+
+
 
 }
 
