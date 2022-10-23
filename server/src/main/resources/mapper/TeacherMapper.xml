@@ -40,13 +40,13 @@
         SELECT * FROM teacher
     </select>
     <select id="findBySearch" resultType="duan.server.entity.Teacher_vo">
-        SELECT tno,tname,tsex,collegename
+        SELECT *
          FROM teacher,college
             WHERE teacher.tname =#{tea.tname}
              AND teacher.collegeid=college.collegeid
     </select>
     <select id="findBySearch_mohu" resultType="duan.server.entity.Teacher_vo">
-        SELECT tno,tname,tsex,collegename
+        SELECT *
          FROM teacher,college
             WHERE teacher.tname LIKE CONCAT('%',#{tea.tname},'%')
              AND teacher.collegeid=college.collegeid

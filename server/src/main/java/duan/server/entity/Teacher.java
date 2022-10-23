@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * <p>
@@ -22,6 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
   @ApiModel(value = "Teacher对象", description = "")
 public class Teacher implements Serializable {
 
@@ -48,6 +46,10 @@ public class Teacher implements Serializable {
 
       private String role;
 
+      private String education;
+
+      private Integer age;
+
 
   public Teacher(Teacher teacher) {
     this.tno = teacher.getTno();
@@ -55,6 +57,8 @@ public class Teacher implements Serializable {
     this.tname = teacher.getTname();
     this.tsex = teacher.getTsex();
     this.collegeid = teacher.getCollegeid();
-    this.role = teacher.getRole();
+    this.education = teacher.getEducation();
+    this.role = "ROLE_TEACHER";
+    this.age = teacher.getAge();
   }
 }

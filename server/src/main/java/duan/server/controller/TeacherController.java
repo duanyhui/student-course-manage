@@ -83,6 +83,7 @@ public class TeacherController {
             teacher.setPassword("123456");
         }
         try {
+            log.info("正在添加老师信息 " + teacher.toString());
             System.out.println("正在添加老师 " + teacher);
             if (teacherService.getTno(teacher.getTno())) {
                 return Result.fail("操作失败,老师已存在");

@@ -24,4 +24,11 @@ public class Teacher_vo {
 
     @ApiModelProperty("学院")
     private String collegename;
+
+    @ApiModelProperty("学历")
+    private String education;
+
+    @ApiModelProperty("年龄")
+    private Integer age;
+
 }
