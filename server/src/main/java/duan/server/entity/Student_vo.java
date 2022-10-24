@@ -36,4 +36,13 @@ public class Student_vo  {
 
     @ApiModelProperty("培养计划id")
     private Integer planid;
+
+    @ApiModelProperty("学年")
+    private Integer schoolyear;
+
+    @ApiModelProperty("班级id")
+    private Integer classid;
+
+    @ApiModelProperty("在班编号")
+    private Integer onclassid;
 }

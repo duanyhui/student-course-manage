@@ -57,6 +57,17 @@ public class Student implements Serializable {
       @ApiModelProperty("培养计划id")
       private Integer planid;
 
+      @ApiModelProperty("学年")
+      private Integer schoolyear;
+
+      @ApiModelProperty("班级id")
+      private Integer classid;
+
+      @ApiModelProperty("在班编号")
+      private Integer onclassid;
+
+
+
 
   public Student(Student student) {
     this.sno = student.getSno();
@@ -68,5 +79,8 @@ public class Student implements Serializable {
     this.collegeid = student.getCollegeid();
     this.role = "ROLE_STUDENT";
     this.planid = student.getPlanid();
+    this.schoolyear = student.getSchoolyear();
+    this.classid = student.getClassid();
+    this.onclassid = student.getOnclassid();
   }
 }

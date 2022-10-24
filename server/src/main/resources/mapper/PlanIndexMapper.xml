@@ -13,6 +13,7 @@
             AND plan_index.majorid = major.majorid
             AND major.collegeid = college.collegeid
             AND plan_index.termid = term.termid
+            AND plan_index.termid  &lt;= 8
 
     </select>
 </mapper>

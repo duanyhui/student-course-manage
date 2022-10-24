@@ -54,10 +54,10 @@ public class StudentController {
         }
     }
 
-
+// 修改增加学生的逻辑，学号由个人信息自动生成，不需要输入
     @PostMapping("/add")
     public Result add(@RequestBody Student student) throws Exception {
-        log.info("正在添加学号为" + student.getSno() + "的学生");
+//        log.info("正在添加学号为" + student.getSno() + "的学生");
         try {
             if (studentService.haveSno(student.getSno())) {
                 return Result.fail("添加失败,学号已存在");
@@ -120,7 +120,8 @@ public class StudentController {
         try {
             Integer fuzzy = (Objects.equals(student.getPassword(), "fuzzy")) ? 1 : 0;
 
-            List<Student_vo> list = studentService.findBySearch(student.getSno(), student.getSname(), fuzzy);
+
+            List<Student_vo> list = studentService.findBySearch(student, fuzzy);
 
             return Result.succ(list);
         }

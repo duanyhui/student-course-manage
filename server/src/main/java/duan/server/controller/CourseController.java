@@ -96,6 +96,9 @@ public class CourseController {
     @PostMapping("/findBySearch")
     public Result findBySearch(@RequestBody SCT_old sct){
         try{
+            if(sct.getFuzzy()==null){
+                sct.setFuzzy("true");
+            }
             Integer fuzzyInt = (Objects.equals(sct.getFuzzy(), "true")) ? 1 : 0;
             return Result.succ(courseService.findBySearch(sct, fuzzyInt));
         }

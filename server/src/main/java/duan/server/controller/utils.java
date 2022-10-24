@@ -1,9 +1,8 @@
 package duan.server.controller;
 
 import duan.server.commom.lang.Result;
-import duan.server.entity.Ct;
-import duan.server.entity.Ct_vo;
-import duan.server.entity.PlanIndex;
+import duan.server.entity.*;
+import duan.server.entity.Class;
 import duan.server.mapper.MajorMapper;
 import duan.server.service.impl.*;
 import io.swagger.models.auth.In;
@@ -59,7 +58,9 @@ public class utils {
         PlanIndex planIndex = new PlanIndex();
         planIndex.setMajorid(majorid);
         planIndex.setCollegeid(collegeid);
-        for (int i = 1; i <= 8; i++) {
+        //22/10/24 凌晨2点34分
+        // 这里写9是因为要考虑毕业的情况，我数据库设置了约束一定要有9个学期，我之后才能变更到第9个学期
+        for (int i = 1; i <= 20; i++) {
             planIndex.setTermid(i);
             planIndexService.createPlanIndex(planIndex);
         }
@@ -144,6 +145,89 @@ public class utils {
         }
 
     }
+
+    @Autowired
+    private ClassServiceImpl classService;
+
+    /**
+     * 创建班级
+     * @param collegeid
+     * @param majorid
+     * @param classid
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/add_class")
+    public Result addClass(@RequestParam("collegeid") Integer collegeid,
+                           @RequestParam("majorid") Integer majorid,
+                           @RequestParam("classid") Integer classid,
+                           @RequestParam("schoolyear") Integer schoolyear)
+            throws Exception {
+        try {
+            classService.addClass(collegeid,majorid,classid,schoolyear);
+            return Result.succ("操作成功");
+        } catch (Exception e) {
+            return Result.fail("操作失败");
+        }
+
+    }
+
+    @GetMapping("/get_classlist_by_college_major_schoolyear")
+    public Result getClassList(@RequestParam("collegeid") Integer collegeid,
+                               @RequestParam("majorid") Integer majorid,
+                               @RequestParam("schoolyear") Integer schoolyear)
+            throws Exception{
+        List<Class_vo> list = classService.getClassList(collegeid,majorid,schoolyear);
+        return Result.succ(list);
+    }
+
+    @GetMapping("/get_classlist")
+    public Result getClassList() throws Exception{
+        List<Class_vo> list = classService.getClassList();
+        return Result.succ(list);
+    }
+
+    @GetMapping("/get_classlist_by_schoolyear")
+    public Result getClassList(@RequestParam("schoolyear") Integer schoolyear) throws Exception{
+        List<Class_vo> list = classService.getClassList(schoolyear);
+        return Result.succ(list);
+    }
+
+    @PostMapping("/delete_class")
+    public Result deleteClass(@RequestParam("collegeid") Integer collegeid,
+                              @RequestParam("majorid") Integer majorid,
+                              @RequestParam("classid") Integer classid,
+                              @RequestParam("schoolyear") Integer schoolyear)
+            throws Exception {
+        try {
+            classService.deleteClass(collegeid,majorid,classid,schoolyear);
+            return Result.succ("操作成功");
+        } catch (Exception e) {
+            return Result.fail("操作失败");
+        }
+    }
+
+    @Autowired
+    private SchoolyearServiceImpl schoolyearService;
+    @GetMapping("/get_schoolyear_list")
+    public Result getSchoolyearList() throws Exception{
+        List<Schoolyear> list = schoolyearService.getSchoolyearList();
+        return Result.succ(list);
+    }
+
+    @PostMapping("/add_schoolyear")
+    public Result addSchoolyear(@RequestParam("schoolyear") Integer schoolyear) throws Exception{
+        try {
+            schoolyearService.addSchoolyear(schoolyear);
+            return Result.succ("操作成功");
+        } catch (Exception e) {
+            return Result.fail("操作失败");
+        }
+    }
+
+
+
+
 
 
 }

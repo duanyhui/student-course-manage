@@ -64,10 +64,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
      * @return
      */
     @Override
-    public List<Student_vo> findBySearch(String sno, String sname, Integer fuzzy) {
-        Student student = new Student();
-        student.setSno(sno);
-        student.setSname(sname);
+    public List<Student_vo> findBySearch(Student student, Integer fuzzy) {
+
+
+
         fuzzy = (fuzzy == 1) ? 1 : 0;
 
         System.out.println("模糊查询标志位：" + fuzzy);
@@ -86,6 +86,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public int updateByCno(Student student) throws Exception {
+        Student stu1 = studentMapper.findBySno(student.getSno());
+        student.setMajorid(stu1.getMajorid());
+        student.setCollegeid(stu1.getCollegeid());
+        //更新学期时变更培养计划表
+
 
         //todo 专业和学院不能修改
         student.setCollegeid(studentMapper.findBySno(student.getSno()).getCollegeid());
@@ -113,10 +118,48 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Autowired
     private IPlanIndexService planIndexService;
+    @Autowired
+    private ClassServiceImpl classService;
     @Override
     public int add(Student student) throws Exception {
+        student.setTermid(1);
         Integer planid = planIndexService.getPlanid(student.getCollegeid(), student.getMajorid(), student.getTermid());
         student.setPlanid(planid);
+
+        String sno,college,major,classid,onclassid;
+        Integer onclassid_int;
+        if(student.getCollegeid()<10){
+            college = "0"+student.getCollegeid().toString();
+        }
+        else{
+            college = student.getCollegeid().toString();
+        }
+        if(student.getMajorid()<10){
+            major = "0"+student.getMajorid().toString();
+        }
+        else{
+            major = student.getMajorid().toString();
+        }
+        if(student.getClassid()<10){
+            classid = "0"+student.getClassid().toString();
+        }
+        else{
+            classid = student.getClassid().toString();
+        }
+
+        onclassid_int = classService.createOnclassid(student.getSchoolyear()
+                ,student.getCollegeid(),student.getMajorid(),student.getClassid());
+        if (onclassid_int<10){
+            onclassid = "0"+onclassid_int.toString();
+        }
+        else{
+            onclassid = onclassid_int.toString();
+        }
+        sno = student.getSchoolyear().toString()+college+major+classid+onclassid;
+        student.setSno(sno);
+        student.setOnclassid(onclassid_int);
+
+
         LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
         Student stu = new Student(student);
         stu.setPassword(HashUtils.getBC(student.getPassword()));
@@ -187,12 +230,24 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public void updateTerm() {
+    public void updateTerm() throws Exception {
         studentMapper.updateTerm();
+        List<Student> studentList = studentMapper.selectList(null);
+        for (Student student : studentList) {
+            Integer planid = planIndexService.getPlanid(student.getCollegeid(), student.getMajorid(), student.getTermid());
+            student.setPlanid(planid);
+            studentMapper.updateById(student);
+        }
     }
 
     @Override
-    public void updateTermBefore() {
+    public void updateTermBefore() throws Exception {
         studentMapper.updateTermBefore();
+        List<Student> studentList = studentMapper.selectList(null);
+        for (Student student : studentList) {
+            Integer planid = planIndexService.getPlanid(student.getCollegeid(), student.getMajorid(), student.getTermid());
+            student.setPlanid(planid);
+            studentMapper.updateById(student);
+        }
     }
 }

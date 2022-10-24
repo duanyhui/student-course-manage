@@ -42,7 +42,7 @@ public class PlanController {
         log.info("正在创建开设培养计划的索引");
         log.info(planIndex.toString());
         // 直接创建8个学期的培养计划索引表
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 20; i++) {
             planIndex.setTermid(i);
             planIndexService.createPlanIndex(planIndex);
         }
@@ -83,6 +83,13 @@ public class PlanController {
     public Result deletePlanTableById(@RequestBody PlanTable planTable) throws Exception {
         log.info("正在删除开设培养计划的表id为"+planTable.getId());
         return planTableService.deletePlanTable(planTable.getId());
+    }
+
+    @PostMapping("delete_plan_table_by_planid_and_cid")
+    public Result deletePlanTableByPlanIdAndCid(@RequestBody PlanTable planTable) throws Exception {
+        log.info("正在删除开设培养计划的表planid为"+planTable.getPlanid()+"cid为"+planTable.getCid());
+
+        return planTableService.deletePlanTableByPlanIdAndCid(planTable.getPlanid(),planTable.getCid());
     }
 
     @PostMapping("/update_plan_table_by_id")

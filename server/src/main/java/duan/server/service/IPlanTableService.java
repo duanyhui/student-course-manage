@@ -36,4 +36,6 @@ public interface IPlanTableService extends IService<PlanTable> {
     List<Course> getPlanTableBySno(String sno);
 
     List<Course> getCourseList(Integer collegeid, Integer majorid, Integer termid);
+
+    Result deletePlanTableByPlanIdAndCid(Integer planid, Integer cid) throws Exception;
 }

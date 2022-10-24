@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="duan.server.mapper.ClassMapper">
+
+    <insert id="addClass">
+        INSERT
+        INTO class(collegeid, majorid, classid,schoolyear)
+        VALUE (#{collegeid},#{majorid},#{classid},#{schoolyear})
+    </insert>
+
+    <select id="getClassList" resultType="duan.server.entity.Class_vo">
+        SELECT
+        *
+        FROM class, college, major
+        WHERE class.collegeid = college.collegeid
+        AND class.majorid = major.majorid
+        AND class.collegeid = #{collegeid}
+        AND class.majorid = #{majorid}
+        AND class.schoolyear = #{schoolyear}
+    </select>
+    <select id="getClassList_all" resultType="duan.server.entity.Class_vo">
+        SELECT
+        *
+        FROM class, college, major
+        WHERE class.collegeid = college.collegeid
+        AND class.majorid = major.majorid
+    </select>
+    <select id="getClassList_by_schoolyear" resultType="duan.server.entity.Class_vo">
+        SELECT
+        *
+        FROM class, college, major
+        WHERE class.collegeid = college.collegeid
+        AND class.majorid = major.majorid
+        AND class.schoolyear = #{schoolyear}
+    </select>
+    <select id="getOnclassid" resultType="java.lang.Integer">
+        SELECT onclassid
+        FROM class
+        WHERE collegeid = #{collegeid}
+        AND majorid = #{majorid}
+        AND schoolyear = #{schoolyear}
+        AND classid = #{classid}
+
+    </select>
+    <update id="updateOnclassid">
+        UPDATE class
+        SET onclassid = #{onclassid}
+        WHERE collegeid = #{collegeid}
+        AND majorid = #{majorid}
+        AND schoolyear = #{schoolyear}
+        AND classid = #{classid}
+
+    </update>
+</mapper>

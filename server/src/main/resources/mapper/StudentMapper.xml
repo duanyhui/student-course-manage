@@ -34,9 +34,20 @@
         WHERE sno = #{student.sno};
     </update>
     <update id="updateTerm">
+
+
         UPDATE student
-        SET
-            termid = termid + 1
+        <set>
+            <choose>
+                <when test="termid &lt; 9">
+                    termid = termid+ 1
+                </when>
+                <otherwise>
+                    termid = 9
+                </otherwise>
+            </choose>
+
+        </set>
 
     </update>
     <update id="updateTermBefore">
@@ -58,11 +69,23 @@
     </select>
 
     <select id="findBySearch_mohu" resultType="duan.server.entity.Student_vo">
-        SELECT student.sno,student.sname,student.ssex,major.majorname,college.collegename,termname
+        SELECT *
         FROM
             student,major,college,term
         WHERE student.sname LIKE CONCAT('%', #{stu.sname}, '%')
+        <if test="stu.majorid != null">
+        AND student.majorid LIKE CONCAT('%', #{stu.majorid}, '%')
+        </if>
+          <if test="stu.collegeid != null">
 
+        AND student.collegeid LIKE CONCAT('%', #{stu.collegeid}, '%')
+        </if>
+          <if test="stu.schoolyear != null">
+          AND student.schoolyear LIKE CONCAT('%', #{stu.schoolyear}, '%')
+            </if>
+            <if test="stu.classid != null">
+            AND student.classid LIKE CONCAT('%', #{stu.classid}, '%')
+            </if>
           AND student.majorid = major.majorid
           AND student.collegeid = major.collegeid
           AND college.collegeid = major.collegeid
@@ -70,7 +93,7 @@
     </select>
 
     <select id="findBySearch" resultType="duan.server.entity.Student_vo">
-        SELECT student.sno,student.sname,student.ssex,major.majorname,college.collegename,termname
+        SELECT *
         FROM
         student,major,college,term
         WHERE
@@ -92,7 +115,7 @@
         WHERE sno = #{sno}
     </select>
     <select id="findBySno_vo" resultType="duan.server.entity.Student_vo">
-        SELECT student.sno,  student.sname, student.ssex, majorname, termname, collegename,plan_index.planid
+        SELECT *
         FROM student,term,college,major,plan_index
         WHERE sno = #{sno}
           AND student.majorid = major.majorid

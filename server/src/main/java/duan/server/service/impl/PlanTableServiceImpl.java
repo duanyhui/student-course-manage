@@ -108,6 +108,23 @@ public class PlanTableServiceImpl extends ServiceImpl<PlanTableMapper, PlanTable
     }
 
     @Override
+    public Result deletePlanTableByPlanIdAndCid(Integer planid, Integer cid) throws Exception {
+        try {
+            LambdaQueryWrapper<PlanTable> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(PlanTable::getPlanid,planid).eq(PlanTable::getCid,cid);
+            if(planTableMapper.delete(queryWrapper)==1){
+                return Result.succ("删除成功");
+            }
+            else {
+                return Result.fail("删除失败，没有选择该课程");
+            }
+        }
+        catch (Exception e){
+            throw new Exception("删除失败,已经存在选择该课程的学生，无法删除");
+        }
+    }
+
+    @Override
     public Result getPlanTableList() {
         return Result.succ(planTableMapper.selectList(null));
     }

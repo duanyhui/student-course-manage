@@ -20,7 +20,7 @@ public interface IStudentService extends IService<Student> {
 
     public Student findBySno(String sno);
     public List<Student> findByPage(Integer num, Integer size);
-    public List<Student_vo> findBySearch(String sno, String sname, Integer fuzzy);
+    public List<Student_vo> findBySearch(Student student, Integer fuzzy);
     public Integer getLength();
     public int updateByCno(Student student) throws Exception;
     public boolean deleteBySno(String sno);
@@ -38,7 +38,7 @@ public interface IStudentService extends IService<Student> {
 
     Result delete_selected_course(Integer ctid, String sno);
 
-    void updateTerm();
+    void updateTerm() throws Exception;
 
-    void updateTermBefore();
+    void updateTermBefore() throws Exception;
 }

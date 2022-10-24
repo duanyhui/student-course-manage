@@ -48,8 +48,7 @@ public class AdminController {
         System.out.println("正在查询管理员信息");
         Admin admin = adminService.findByUid(uid);
         System.out.println("管理员信息" + admin);
-        Result res=Result.succ(admin);
-        return res;
+        return Result.succ(admin);
     }
 }
 
